@@ -27,6 +27,8 @@ public class World {
         world = new String[mapWidth][mapHeight];
 
         addBorder();
+        // Add Ant hill
+        // Add rocks
         addFood();
 
         testWorld();
@@ -63,23 +65,40 @@ public class World {
         }
     }
 
-    // Adds 11 randomly placed blobs of food into the world.
+    // Adds *FOOD NEEDED* randomly placed blobs of food into the world.
+    // If the map is very small, occasionally it wont be able to place all the food.... So will not terminate. 
+    // Try and keep the map bigger than 20x20 ish.
     private void addFood() {
         Random r = new Random();
-        int foodNeeded = 11;
+        int foodNeeded = 3;
         int foodPlaced = 0;
-
+        boolean spaceAvaliable;
         int Low = 0;
         int HighX = getMapWidth();
         int HighY = getMapHeight();
 
         while (foodPlaced < foodNeeded) {
-            int spaceResultX = r.nextInt(HighX - Low) + Low;
-            int spaceResultY = r.nextInt(HighY - Low) + Low;
-            if (world[spaceResultX][spaceResultY].equals(".")) {
-                int randomFoodAmount = r.nextInt(10 - 1) + 1;
-                world[spaceResultX][spaceResultY] = Integer.toString(randomFoodAmount);
-                foodPlaced++;
+            spaceAvaliable = true;
+            int spaceResultX = r.nextInt(HighX - Low) + Low;        // Get Random X Coordinate
+            int spaceResultY = r.nextInt(HighY - Low) + Low;        // Get Random Y Coordinate
+
+            // Check the blob of food will be placed within the map and on a valid position (all .'s).
+            if (spaceResultX > 0 && spaceResultX + 4 < HighX - 1 && spaceResultY > 0 && spaceResultY + 4 < HighY - 1 && spaceAvaliable) {
+                for (int counterX = 0; counterX <= 4; counterX++) {
+                    for (int counterY = 0; counterY <= 4; counterY++) {
+                        spaceAvaliable = world[spaceResultX + counterX][spaceResultY + counterY].equals(".") && spaceAvaliable;
+                    }
+                }
+
+                // If it is, place the blob of food. 
+                if (spaceAvaliable) {
+                    for (int counterX = 0; counterX <= 4; counterX++) {
+                        for (int counterY = 0; counterY <= 4; counterY++) {
+                            world[spaceResultX + counterX][spaceResultY + counterY] = Integer.toString(5);
+                        }
+                    }
+                    foodPlaced++;
+                }
             }
         }
     }

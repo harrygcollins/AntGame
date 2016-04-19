@@ -3,5 +3,13 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group/>
+        <group name="Labs">
+            <file>file:/Users/Harry/Documents/AntGame/test/Tests/RandomNumberTest.java</file>
+            <file>file:/Users/Harry/Documents/AntGame/src/antgame/RandomNumber.java</file>
+            <file>file:/Users/Harry/Documents/AntGame/src/antgame/AntGame.java</file>
+            <file>file:/Users/Harry/Documents/AntGame/src/antgame/World.java</file>
+            <file>file:/Users/Harry/Documents/AntGame/src/antgame/Ant.java</file>
+            <file>file:/Users/Harry/Documents/AntGame/test/Tests/WorldTest.java</file>
+        </group>
     </open-files>
 </project-private>
