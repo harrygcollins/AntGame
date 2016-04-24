@@ -27,10 +27,10 @@ import javax.swing.border.TitledBorder;
  *
  * @author ADigenis
  */
-public class Tournament extends JFrame {
+public class SingleMatch extends JFrame {
 
-    public Tournament() {
-        super("Tournament");
+    public SingleMatch() {
+        super("Single Match");
         buildUI();
     }
 
@@ -140,27 +140,14 @@ public class Tournament extends JFrame {
 
     public JPanel createWorldField() {
         JTextField world;
-        JTextField scoreField;
         JPanel outerPanel;
-        JPanel innerPanel;
 
-        innerPanel = new JPanel();
         outerPanel = new JPanel();
-        scoreField = new JTextField();
+        outerPanel.setLayout(new BoxLayout(outerPanel, BoxLayout.LINE_AXIS));
+        outerPanel.setBorder(new TitledBorder(new LineBorder(Color.GRAY, 1), "Ant-World"));
         world = new JTextField();
 
-        outerPanel.setLayout(new BoxLayout(outerPanel, BoxLayout.LINE_AXIS));
-        innerPanel.setLayout(new BoxLayout(innerPanel, BoxLayout.LINE_AXIS));
-        innerPanel.setBorder(new TitledBorder(new LineBorder(Color.GRAY, 1), "Ant-World"));
-        innerPanel.add(world);
-        innerPanel.setPreferredSize(new Dimension(400, 0));
-        outerPanel.add(innerPanel);
-
-        innerPanel = new JPanel();
-        innerPanel.setLayout(new BoxLayout(innerPanel, BoxLayout.LINE_AXIS));
-        innerPanel.setBorder(new TitledBorder(new LineBorder(Color.GRAY, 1), "Score"));
-        innerPanel.add(scoreField);
-        outerPanel.add(innerPanel);
+        outerPanel.add(world);
 
         return outerPanel;
     }
