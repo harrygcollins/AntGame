@@ -64,7 +64,7 @@ public class Chemistry {
 
 
         //  Else create marker, value must be that returned from Choosing Type Method
-        typeChoice = ChooseMarker(markerType);
+        //typeChoice = ChooseMarker(markerType);
 
         markers marker;
         marker = new markers(typeChoice, a.colour);

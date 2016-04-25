@@ -30,23 +30,23 @@ public class AntBrainParserTest {
     public static void tearDownClass() {
     }
 
-//    @Test
-//    public void firsTest() {
-//        AntBrainParser parser = new AntBrainParser();
-//        List<String> testBrain = new ArrayList<String>();
-//        testBrain.add("drop");
-//        testBrain.add("5");
-//        assertTrue(parser.IsValidBrain(testBrain));
-//    }
-//    
-//    @Test
-//    public void falseTest(){
-//        AntBrainParser parser = new AntBrainParser();
-//        List<String> testBrain = new ArrayList<String>();
-//        testBrain.add("harry");
-//        testBrain.add("5");
-//        assertFalse(parser.IsValidBrain(testBrain));
-//    }
+    @Test
+    public void firsTest() {
+        AntBrainParser parser = new AntBrainParser();
+        List<String> testBrain = new ArrayList<String>();
+        testBrain.add("drop");
+        testBrain.add("5");
+        assertTrue(parser.IsValidBrain(testBrain));
+    }
+    
+    @Test
+    public void falseTest(){
+        AntBrainParser parser = new AntBrainParser();
+        List<String> testBrain = new ArrayList<String>();
+        testBrain.add("harry");
+        testBrain.add("5");
+        assertFalse(parser.IsValidBrain(testBrain));
+    }
     
     @Test
     public void fullTest(){

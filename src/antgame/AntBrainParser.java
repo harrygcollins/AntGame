@@ -30,9 +30,16 @@ public class AntBrainParser {
         } catch (FileNotFoundException ex) {
             Logger.getLogger(AntBrainParser.class.getName()).log(Level.SEVERE, null, ex);
         }
-        ArrayList<String> list = new ArrayList<String>();
+        ArrayList<String> list = new ArrayList<>();
         while (s.hasNext()) {
-            list.add(s.next().toLowerCase());
+            String temp = s.next().toLowerCase();
+            if(!(temp.contains(";"))){
+                list.add(temp);
+                System.out.println(temp);
+            } else {
+                s.nextLine();
+            }
+            
         }
         s.close();
         
