@@ -27,7 +27,7 @@ public class World {
         world = new String[mapWidth][mapHeight];
 
         addBorder();
-        // Add Ant hill
+        addAntHill();
         // Add rocks
         addFood();
 
@@ -63,6 +63,50 @@ public class World {
             }
 
         }
+    }
+    
+    private void addAntHill(){
+        int antHillX = 7;
+        int antHillY = 7;
+        Random r = new Random();
+        int antHillsNeeded = 2;
+        int antHillsPlaced = 0;
+        boolean spaceAvaliable;
+        int Low = 0;
+        int HighX = getMapWidth();
+        int HighY = getMapHeight();
+        
+        while (antHillsPlaced < antHillsNeeded) {
+            spaceAvaliable = true;
+            int spaceResultX = r.nextInt(HighX - Low) + Low;        // Get Random X Coordinate
+            int spaceResultY = r.nextInt(HighY - Low) + Low;        // Get Random Y Coordinate
+
+            // Check the antHill will be placed within the map and on a valid position (all .'s).
+            if (spaceResultX > 0 && (spaceResultX + antHillX - 1) < HighX - 1 && spaceResultY > 0 && (spaceResultY + antHillY - 1) < HighY - 1 && spaceAvaliable) {
+                for (int counterX = 0; counterX <= 4; counterX++) {
+                    for (int counterY = 0; counterY <= 4; counterY++) {
+                        spaceAvaliable = world[spaceResultX + counterX][spaceResultY + counterY].equals(".") && spaceAvaliable;
+                    }
+                }
+
+                // If it is, place the antHill food. 
+                if (spaceAvaliable) {
+                    for (int counterX = 0; counterX < antHillX; counterX++) {
+                        for (int counterY = 0; counterY < antHillY; counterY++) {
+                            if(antHillsPlaced == 0){
+                                world[spaceResultX + counterX][spaceResultY + counterY] = "+";
+
+                            } else {
+                                world[spaceResultX + counterX][spaceResultY + counterY] = "-";
+                            }
+                        }
+                    }
+                    antHillsPlaced++;
+                }
+            }
+        }
+        
+        
     }
 
     // Adds *FOOD NEEDED* randomly placed blobs of food into the world.
