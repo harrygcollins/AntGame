@@ -20,7 +20,7 @@ public class Chemistry {
 
    
 
-    public int ChooseMarker(markerType m) throws Exception {
+    public int chooseMarker(markerType m) throws Exception {
 
         switch (m) {
             case BASE:
@@ -64,7 +64,11 @@ public class Chemistry {
 
 
         //  Else create marker, value must be that returned from Choosing Type Method
+
         //typeChoice = ChooseMarker(markerType);
+
+        //typeChoice = chooseMarker(markerType);
+
 
         markers marker;
         marker = new markers(typeChoice, a.colour);
@@ -91,5 +95,31 @@ public class Chemistry {
 
     public void clearMarker(int x, int y) {
       //        remove enemy marker from world
+    }
+    
+    public boolean cellMatches(int[] p, markerType cond, int colour) {
+        switch (cond) {
+            //case Friend:
+                //some_ant_is_at(p) && colour(ant_at(p)) == c
+            //case Foe:
+                //some_ant_is_at(p) && colour(ant_at(p)) !== c
+            //case FriendWithFood:
+                //some_ant_is_at(p) && colour(ant_at(p)) == c && has_food(ant_at(p))
+            //case FoeWithFood:
+                //some_ant_is_at(p) && colour(ant_at(p)) !== c && has_food(ant_at(p))
+            //case Food:
+                //food_at(p) > 0
+            //case Rock:
+                //isRocky(p) = true
+            //case Marker(i):
+                //check_marker_at(p,c,i)
+            //case FoeMarker:
+                //check_any_marker_at(p, other_colour(c))
+            //case Home:
+                //anthill_at(p, c)
+            //case FoeHome:
+                //anthill_at(p, other_colour(c))
+        }
+        return false;
     }
 }
