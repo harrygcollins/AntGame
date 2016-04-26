@@ -28,8 +28,8 @@ public class World {
 
         addBorder();
         addAntHill();
-        // Add rocks
         addFood();
+        addRocks();
 
         testWorld();
     }
@@ -65,6 +65,7 @@ public class World {
         }
     }
     
+    // Adds two randomly placed ant hills into the world. 
     private void addAntHill(){
         int antHillX = 7;
         int antHillY = 7;
@@ -142,6 +143,48 @@ public class World {
                         }
                     }
                     foodPlaced++;
+                }
+            }
+        }
+    }
+    
+      private void addRocks() {
+        Random r = new Random();
+        
+        int rocksPlaced = 0;
+        boolean spaceAvaliable;
+        int Low = 0;
+        int rocksNeeded = r.nextInt(10 - 7) + 7;    //Random number of rocks between 2 and 10.
+        int HighX = getMapWidth();
+        int HighY = getMapHeight();
+
+        while (rocksPlaced < rocksNeeded) {
+            spaceAvaliable = true;
+            int spaceResultX = r.nextInt(HighX - Low) + Low;        // Get Random X Coordinate
+            int spaceResultY = r.nextInt(HighY - Low) + Low;        // Get Random Y Coordinate
+            
+            int randomRockX = r.nextInt(r.nextInt(10 - 1) + 1);     // Get Random rock width X
+            int randomRockY = r.nextInt(r.nextInt(10 - 1) + 1);     // Get Random rock height Y
+            
+
+            // Check the blob of food will be placed within the map and on a valid position (all .'s).
+            if (spaceResultX > 0 && spaceResultX + randomRockX < HighX - 1 && spaceResultY > 0 && spaceResultY + randomRockY < HighY - 1 && spaceAvaliable) {
+                for (int counterX = 0; counterX <= randomRockX; counterX++) {
+                    for (int counterY = 0; counterY <= randomRockY; counterY++) {
+                        spaceAvaliable = world[spaceResultX + counterX][spaceResultY + counterY].equals(".") && spaceAvaliable;
+                    }
+                }
+
+                // If it is, place the blob of food. 
+                if (spaceAvaliable) {
+                    for (int counterX = 0; counterX <= randomRockX; counterX++) {
+                        for (int counterY = 0; counterY <= randomRockY; counterY++) {
+                            if(Math.random() < 0.5) {
+                                world[spaceResultX + counterX][spaceResultY + counterY] = "#";
+                            }
+                        }
+                    }
+                    rocksPlaced++;
                 }
             }
         }
