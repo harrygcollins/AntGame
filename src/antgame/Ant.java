@@ -32,6 +32,10 @@ public class Ant {
         
     }
     
+    public int[] getPos() {
+        return new int[] {positionX, positionY};
+    }
+    
     public int getAntX(){
         return positionX;
     }
@@ -78,68 +82,52 @@ public class Ant {
     }
     
     //Currently, and even number means left and odd means right
-    public void turn(int leftOrRight) {
-        if (leftOrRight%2 == 0) { //if left
-            direction = (direction + 5) % 6;
-        } else { //else if right
-            direction = (direction + 1) % 6;
-        }
-    }
+    //Note this doesnt change the ants direction, just returns the direction it would be facing
+    //if it was to turn that way.
+    //public int turn(int leftOrRight) {
+
+    //    if (leftOrRight%2 == 0) { //if left
+    //        return (direction + 5) % 6;
+    //    } else { //else if right
+    //        return (direction + 1) % 6;
+    //    }
+    //}
     
     //returns an int array of the two values x and y respectivly of the cell adjacent to the ant
-    //takes a dirrection as a parameter to show which adjacent cell it needs to return
-    public int[] adjacentCell(int d) {
-        int x = getAntX();
-        int y = getAntY();
-        if (d == 0) {
-            return new int[] {x+1,y};
-        } else if (d == 1) {
-            if (y % 2 == 0) {
-                return new int[] {x,y+1};
-            } else {
-                return new int[] {x+1,y+1};
-            }
-        } else if (d == 2) {
-            if (y % 2 == 0) {
-                return new int[] {x-1,y+1};
-            } else {
-                return new int[] {x,y+1};
-            }
-        } else if (d == 3) {
-            return new int[] {x-1,y};
-        } else if (d == 4) {
-            if (y % 2 == 0) {
-                return new int[] {x-1,y-1};
-            } else {
-                return new int[] {x,y-1};
-            }
-        } else {
-            if (y % 2 == 0) {
-                return new int[] {x,y-1};
-            } else {
-                return new int[] {x+1,y-1};
-            }
-        }
-    }
+    //takes a direction as a parameter to show which adjacent cell it needs to return
+    //public int[] adjacentCell(int d) {
+    //    int x = getAntX();
+    //    int y = getAntY();
+    //    if (d == 0) {
+    //        return new int[] {x+1,y};
+    //    } else if (d == 1) {
+    //        if (y % 2 == 0) {
+    //            return new int[] {x,y+1};
+    //        } else {
+    //            return new int[] {x+1,y+1};
+    //        }
+    //    } else if (d == 2) {
+    //        if (y % 2 == 0) {
+    //            return new int[] {x-1,y+1};
+    //        } else {
+    //            return new int[] {x,y+1};
+    //        }
+    //    } else if (d == 3) {
+    //        return new int[] {x-1,y};
+    //    } else if (d == 4) {
+    //        if (y % 2 == 0) {
+    //            return new int[] {x-1,y-1};
+    //        } else {
+    //            return new int[] {x,y-1};
+    //        }
+    //    } else {
+    //        if (y % 2 == 0) {
+    //            return new int[] {x,y-1};
+    //        } else {
+    //            return new int[] {x+1,y-1};
+    //        }
+    //    }
+    //}
     
-    //Currently returns the co-ordianates of the sensed cell entered as a direction in the parameter
-    //0 means Here, 1 means Ahead, 2 means LeftAhead and 3 means RightAhead
-    public int[] sensedCell(int senseDir) {
-        int[] result;
-        if (senseDir == 0) { //Here
-            result = new int[] {getAntX(),getAntY()};
-        } else if (senseDir == 1) { //Ahead
-            result = adjacentCell(direction);
-        } else if (senseDir == 2) { //LeftAhead
-            turn(0);
-            result = adjacentCell(direction);
-            turn(1);
-        } else { //RightAhead
-            turn(1);
-            result = adjacentCell(direction);
-            turn(0);
-        }
-        return result;
-    }
     
 }

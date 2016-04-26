@@ -189,6 +189,113 @@ public class World {
             }
         }
     }
+      
+    //returns an int array of the two values x and y respectivly of the cell adjacent to the ant
+    //takes a direction as a parameter to show which adjacent cell it needs to return as well as
+    //the position of the ant itself
+    public int[] adjacentCell(int[] pos,int d) {
+        int x = pos[0];
+        int y = pos[1];
+        if (d == 0) {
+            return new int[] {x+1,y};
+        } else if (d == 1) {
+            if (y % 2 == 0) {
+                return new int[] {x,y+1};
+            } else {
+                return new int[] {x+1,y+1};
+            }
+        } else if (d == 2) {
+            if (y % 2 == 0) {
+                return new int[] {x-1,y+1};
+            } else {
+                return new int[] {x,y+1};
+            }
+        } else if (d == 3) {
+            return new int[] {x-1,y};
+        } else if (d == 4) {
+            if (y % 2 == 0) {
+                return new int[] {x-1,y-1};
+            } else {
+                return new int[] {x,y-1};
+            }
+        } else {
+            if (y % 2 == 0) {
+                return new int[] {x,y-1};
+            } else {
+                return new int[] {x+1,y-1};
+            }
+        }
+    }
+    
+    //Currently, and even number means left and odd means right
+    //Note this doesnt change the ants direction, just returns the direction it would be facing
+    //if it was to turn that way.
+    public int turn(int leftOrRight, int d) {
+        if (leftOrRight%2 == 0) { //if left
+            return (d + 5) % 6;
+        } else { //else if right
+            return (d + 1) % 6;
+        }
+    }
+    
+    public enum senseDir {
+
+        HERE, AHEAD, LEFTAHEAD, RIGHTAHEAD;
+    }
+    
+    //Currently returns the co-ordianates of the sensed cell entered as a direction in the parameter
+    public int[] sensedCell(int[] pos, int dir, senseDir sense) throws Exception {
+        int[] result;
+        switch (sense) {
+            case HERE:
+                return pos;
+            case AHEAD:
+                result = adjacentCell(pos,dir);
+                return result;
+            case LEFTAHEAD:
+                int tempDirL = turn(0,dir);
+                result = adjacentCell(pos,tempDirL);
+                return result;
+            case RIGHTAHEAD:
+                int tempDirR = turn(1,dir);
+                result = adjacentCell(pos,tempDirR);
+                return result;
+            default:
+                throw new Exception("Invaid Sense Direction");
+        }
+    }
+    
+    public enum condition {
+        FRIEND, FOE, FRIENDWITHFOOD, FOEWITHFOOD, FOOD, ROCK, MARKER, FOEMARKER, HOME, FOEHOME
+    }
+    
+    public boolean cellMatches(int[] p, condition cond, int colour) {
+        switch (cond) {
+            //case Friend:
+                //some_ant_is_at(p) && colour(ant_at(p)) == c
+            //case Foe:
+                //some_ant_is_at(p) && colour(ant_at(p)) !== c
+            //case FriendWithFood:
+                //some_ant_is_at(p) && colour(ant_at(p)) == c && has_food(ant_at(p))
+            //case FoeWithFood:
+                //some_ant_is_at(p) && colour(ant_at(p)) !== c && has_food(ant_at(p))
+            //case Food:
+                //food_at(p) > 0
+            //case Rock:
+                //isRocky(p) = true
+            //case Marker(i):
+                //check_marker_at(p,c,i)
+            //case FoeMarker:
+                //check_any_marker_at(p, other_colour(c))
+            //case Home:
+                //anthill_at(p, c)
+            //case FoeHome:
+                //anthill_at(p, other_colour(c))
+        }
+        return false;
+    }
+    
+    
 
     // Prints out the world so it can be viewed.
     void testWorld() {
