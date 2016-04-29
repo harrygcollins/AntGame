@@ -20,6 +20,7 @@ public class Ant {
     int resting;
     
     boolean hasFood;
+    boolean isDead;
     
     public Ant(int colour, int startingX, int startingY, int id){
         direction = 0;      // Facing East
@@ -29,6 +30,8 @@ public class Ant {
         this.id = id;
         hasFood = false;
         resting = 0;
+        isDead = false;
+        state = 0;
         
     }
     
@@ -76,6 +79,27 @@ public class Ant {
         this.resting = resting;
     }
     
+    public boolean getIsDead(){
+        return isDead;
+    }
+    
+    public void setIsDead(boolean deadOrAlive){
+        isDead = deadOrAlive;
+    }
+    
+    public void setDirection(String dir){
+        if(dir == "right"){
+            direction = turn(1);
+        } else {
+            direction = turn(2);
+        }
+    }
+    
+    public void setPosition(int x, int y){
+        positionX = x;
+        positionY = y;
+    }
+    
     //returns int value of the other colour
     public int otherColour() {
         return Math.abs(colour-1);
@@ -84,14 +108,14 @@ public class Ant {
     //Currently, and even number means left and odd means right
     //Note this doesnt change the ants direction, just returns the direction it would be facing
     //if it was to turn that way.
-    //public int turn(int leftOrRight) {
+    public int turn(int leftOrRight) {
 
-    //    if (leftOrRight%2 == 0) { //if left
-    //        return (direction + 5) % 6;
-    //    } else { //else if right
-    //        return (direction + 1) % 6;
-    //    }
-    //}
+        if (leftOrRight%2 == 0) { //if left
+           return (direction + 5) % 6;
+        } else { //else if right
+            return (direction + 1) % 6;
+        }
+    }
     
     //returns an int array of the two values x and y respectivly of the cell adjacent to the ant
     //takes a direction as a parameter to show which adjacent cell it needs to return

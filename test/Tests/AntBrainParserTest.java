@@ -31,27 +31,41 @@ public class AntBrainParserTest {
     }
 
     @Test
+    public void testListMaker(){
+        AntBrainParser parser = new AntBrainParser();
+        for(int i = 0; i < parser.brainList.size(); i++){
+            for(int j = 0; j < parser.brainList.get(i).size(); j++){
+                System.out.println(parser.brainList.get(i).get(j));
+            }
+        }
+    }
+    
+    
+    @Test
     public void firsTest() {
         AntBrainParser parser = new AntBrainParser();
-        List<String> testBrain = new ArrayList<String>();
-        testBrain.add("drop");
-        testBrain.add("5");
+        List<List<String>> testBrain = new ArrayList<>();
+        List<String> tempList = new ArrayList<>();
+        tempList.add("Drop");
+        tempList.add("5");
+        testBrain.add(tempList);
         assertTrue(parser.IsValidBrain(testBrain));
     }
     
     @Test
     public void falseTest(){
         AntBrainParser parser = new AntBrainParser();
-        List<String> testBrain = new ArrayList<String>();
-        testBrain.add("harry");
-        testBrain.add("5");
+        List<List<String>> testBrain = new ArrayList<>();
+        List<String> tempList = new ArrayList<>();
+        tempList.add("harry");
+        tempList.add("5");
         assertFalse(parser.IsValidBrain(testBrain));
     }
     
     @Test
     public void fullTest(){
         AntBrainParser parser = new AntBrainParser();
-        assertTrue(parser.IsValidBrain(parser.token));
+        assertTrue(parser.IsValidBrain(parser.brainList));
         
     }
 }

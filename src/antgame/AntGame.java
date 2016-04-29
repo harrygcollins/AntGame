@@ -51,6 +51,5 @@ public class AntGame {
         
         world = new World(mapWidth, mapHeight);
         
-    }
-    
+    }    
 }
