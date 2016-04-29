@@ -25,20 +25,26 @@ public class AntBrainParser {
 
     public List<List<String>> AntBrainParser() {
         Scanner s = null;
+        // Import a file to be parsed. 
         try {
             s = new Scanner(new File("ANTBRAIN"));
             System.out.println("File Loaded");
         } catch (FileNotFoundException ex) {
             Logger.getLogger(AntBrainParser.class.getName()).log(Level.SEVERE, null, ex);
         }
-        int i = 0;
+        //Scan the first line of the file.
         String line = s.nextLine();
+        
+        // For each line in the file
         while (s.hasNextLine()) {
+            //Create a new scanner and array list for this row. 
             Scanner rowScanner = new Scanner(line);
             List<String> tempList = new ArrayList<>();
             
+            // Scan the words in this row and add them to the arraylist. 
             while (rowScanner.hasNext()) {
                 String temp = rowScanner.next().toLowerCase();
+                // Ignore any comments. 
                 if (!(temp.contains(";"))) {
                     tempList.add(temp);
                     System.out.println("String added to list: " + temp);
@@ -46,8 +52,11 @@ public class AntBrainParser {
                     break;
                 }
             }
+            rowScanner.close();
+            // Add the inner arraylist to the outer. 
             brainList.add(tempList);
         }
+        // Close the scanner. 
         s.close();
 
 

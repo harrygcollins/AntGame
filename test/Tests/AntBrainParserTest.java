@@ -33,9 +33,9 @@ public class AntBrainParserTest {
     @Test
     public void testListMaker(){
         AntBrainParser parser = new AntBrainParser();
-        for(int i = 0; i < parser.brainList.size(); i++){
-            for(int j = 0; j < parser.brainList.get(i).size(); j++){
-                System.out.println(parser.brainList.get(i).get(j));
+        for (List<String> brainList : parser.brainList) {
+            for (String brainList1 : brainList) {
+                System.out.println(brainList1);
             }
         }
     }
@@ -43,12 +43,21 @@ public class AntBrainParserTest {
     
     @Test
     public void firsTest() {
+        // Create the class
         AntBrainParser parser = new AntBrainParser();
+        
+        // Create the outer and inner array (basically 2D arraylist)
         List<List<String>> testBrain = new ArrayList<>();
         List<String> tempList = new ArrayList<>();
+        
+        // Add two strings to (0, 0) and (0,1) coordinates. 
         tempList.add("Drop");
         tempList.add("5");
+        
+        // Add the inner array list into the outer one.
         testBrain.add(tempList);
+        
+        // See if this is valid
         assertTrue(parser.IsValidBrain(testBrain));
     }
     
