@@ -51,7 +51,7 @@ public class AntBrainParserTest {
         List<String> tempList = new ArrayList<>();
         
         // Add two strings to (0, 0) and (0,1) coordinates. 
-        tempList.add("Drop");
+        tempList.add("drop");
         tempList.add("5");
         
         // Add the inner array list into the outer one.
@@ -68,6 +68,7 @@ public class AntBrainParserTest {
         List<String> tempList = new ArrayList<>();
         tempList.add("harry");
         tempList.add("5");
+        testBrain.add(tempList); //added this line to fix test, please check!
         assertFalse(parser.IsValidBrain(testBrain));
     }
     

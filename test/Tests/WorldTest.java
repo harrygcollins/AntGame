@@ -33,8 +33,8 @@ public class WorldTest {
     //
     @Test
     public void testWorldInput() {
-        World numbers = new World(10, 10);
-        assertEquals(numbers.getMapHeight(), 10);
+        World numbers = new World(100, 100);
+        assertEquals(numbers.getMapHeight(), 100);
     
     }
 }
