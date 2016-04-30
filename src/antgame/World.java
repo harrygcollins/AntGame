@@ -268,10 +268,7 @@ public class World {
         }
     }
 
-    public enum senseDir {
-
-        HERE, AHEAD, LEFTAHEAD, RIGHTAHEAD;
-    }
+    
 
     //Currently returns the co-ordianates of the sensed cell entered as a direction in the parameter
     public int[] sensedCell(int[] pos, int dir, senseDir sense) throws Exception {
