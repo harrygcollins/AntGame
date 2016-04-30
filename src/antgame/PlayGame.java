@@ -124,11 +124,12 @@ public class PlayGame {
         }
     }
 
+    //returns true if ant at position given, false otherwise
     private boolean isAntAt(int x, int y) {
         Ant antCheck = redAnts.get(0);
         while (redAnts.iterator().hasNext()) {
             if (antCheck.positionX == x && antCheck.positionY == y) {
-                return false;
+                return true;
             }
             antCheck = redAnts.iterator().next();
         }
@@ -136,11 +137,72 @@ public class PlayGame {
         antCheck = blackAnts.get(0);
         while (blackAnts.iterator().hasNext()) {
             if (antCheck.positionX == x && antCheck.positionY == y) {
-                return false;
+                return true;
             }
             antCheck = blackAnts.iterator().next();
         }
-        return true;
+        return false;
+    }
+    
+    //returns the ant at the position given
+    private Ant antAt(int x, int y) throws Exception {
+        Ant antCheck = redAnts.get(0);
+        while (redAnts.iterator().hasNext()) {
+            if (antCheck.positionX == x && antCheck.positionY == y) {
+                return antCheck;
+            }
+            antCheck = redAnts.iterator().next();
+        }
+
+        antCheck = blackAnts.get(0);
+        while (blackAnts.iterator().hasNext()) {
+            if (antCheck.positionX == x && antCheck.positionY == y) {
+                return antCheck;
+            }
+            antCheck = blackAnts.iterator().next();
+        }
+        throw new Exception("No ant in position given");
+    }
+    
+    //sets the ant at position given
+    private void setAntAt(int[] pos, Ant a) {
+        a.setPosition(pos[0], pos[1]);
+    }
+    
+    //returns int value of the other colour
+    public int otherColour(int colour) {
+        return Math.abs(colour-1);
+    }
+    
+    public enum condition {
+
+        FRIEND, FOE, FRIENDWITHFOOD, FOEWITHFOOD, FOOD, ROCK, MARKER, FOEMARKER, HOME, FOEHOME
+    }
+
+    public boolean cellMatches(int[] p, condition cond, int colour) throws Exception {
+        switch (cond) {
+            case FRIEND:
+                return (isAntAt(p[0],p[1]) && antAt(p[0],p[1]).getColour() == colour);
+            case FOE:
+                return (isAntAt(p[0],p[1]) && antAt(p[0],p[1]).getColour() != colour);
+            case FRIENDWITHFOOD:
+                return (isAntAt(p[0],p[1]) && antAt(p[0],p[1]).getColour() == colour && antAt(p[0],p[1]).getHasFood());
+            case FOEWITHFOOD:
+                return (isAntAt(p[0],p[1]) && antAt(p[0],p[1]).getColour() != colour && antAt(p[0],p[1]).getHasFood());
+            case FOOD:
+                return (gameWorld.foodAt(p) > 0);
+            case ROCK:
+                return (gameWorld.rocky(p));
+            //case MARKER(i):
+                //check_marker_at(p,c,i)
+            //case FOEMARKER:
+                //check_any_marker_at(p, other_colour(c))
+            case HOME:
+                return gameWorld.anthillAt(p,colour);
+            case FOEHOME:
+                return gameWorld.anthillAt(p,otherColour(colour));
+        }
+        return false;
     }
 
     private int runGame() {

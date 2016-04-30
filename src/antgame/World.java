@@ -294,36 +294,25 @@ public class World {
                 throw new Exception("Invaid Sense Direction");
         }
     }
-
-    public enum condition {
-
-        FRIEND, FOE, FRIENDWITHFOOD, FOEWITHFOOD, FOOD, ROCK, MARKER, FOEMARKER, HOME, FOEHOME
+    
+    public boolean rocky(int[] pos) {
+        return world[pos[0]][pos[1]].equals("#");
     }
-
-    public boolean cellMatches(int[] p, condition cond, int colour) {
-        switch (cond) {
-            //case Friend:
-            //some_ant_is_at(p) && colour(ant_at(p)) == c
-            //case Foe:
-            //some_ant_is_at(p) && colour(ant_at(p)) !== c
-            //case FriendWithFood:
-            //some_ant_is_at(p) && colour(ant_at(p)) == c && has_food(ant_at(p))
-            //case FoeWithFood:
-            //some_ant_is_at(p) && colour(ant_at(p)) !== c && has_food(ant_at(p))
-            //case Food:
-            //food_at(p) > 0
-            //case Rock:
-            //isRocky(p) = true
-            //case Marker(i):
-            //check_marker_at(p,c,i)
-            //case FoeMarker:
-            //check_any_marker_at(p, other_colour(c))
-            //case Home:
-            //anthill_at(p, c)
-            //case FoeHome:
-            //anthill_at(p, other_colour(c))
+    
+    public int foodAt(int[] pos) {
+        return Integer.parseInt(world[0][1]);
+    }
+    
+    public void setFoodAt(int[] pos, int f) {
+        world[pos[0]][pos[1]] = Integer.toString(f);
+    }
+    
+    public boolean anthillAt(int[] pos, int colour) {
+        if (colour == 0) {
+            return (world[pos[0]][pos[1]].equals("+"));
+        } else {
+            return (world[pos[0]][pos[1]].equals("-"));
         }
-        return false;
     }
 
     // Prints out the world so it can be viewed.

@@ -100,11 +100,6 @@ public class Ant {
         positionY = y;
     }
     
-    //returns int value of the other colour
-    public int otherColour() {
-        return Math.abs(colour-1);
-    }
-    
     //Currently, and even number means left and odd means right
     //Note this doesnt change the ants direction, just returns the direction it would be facing
     //if it was to turn that way.
