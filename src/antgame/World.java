@@ -312,45 +312,46 @@ public class World {
         }
     }
 
-    public String chooseMarker(markerType s, Ant a) throws Exception {
+    public String chooseMarker(int s, Ant a) throws Exception {
 
         switch (s) {
-            case BASE:
+            //case BASE:
+            case 1:
                 if (a.colour == 0) {
                     return "Q";
                 } else {
                     return "W";
                 }
-
-            case WARNING:
+            case 2:
+            //case WARNING:
                 if (a.colour == 0) {
                     return "E";
                 } else {
                     return "R";
                 }
-
-            case FriendWithFood:
+            case 3:
+            //case FriendWithFood:
                 if (a.colour == 0) {
                     return "T";
                 } else {
                     return "Y";
                 }
-
-            case FOOD:
+            case 4:
+            //case FOOD:
                 if (a.colour == 0) {
                     return "Z";
                 } else {
                     return "X";
                 }
-
-            case EDGE:
+            case 5:
+            //case EDGE:
                 if (a.colour == 0) {
                     return "C";
                 } else {
                     return "V";
                 }
-
-            case DIED:
+            case 6:
+            //case DIED:
                 if (a.colour == 0) {
                     return "B";
                 } else {
@@ -362,7 +363,9 @@ public class World {
         }
     }
 
-    public void clearMarker(int x, int y, Ant a) {
+    public void clearMarker(Ant a) {
+        int x = a.getAntX();
+        int y = a.getAntY();
         String cellValue = world[x][y];
         if (a.colour != 0) {
             if (cellValue == "W" || cellValue == "R" || cellValue == "Y" || cellValue == "X" || cellValue == "V" || cellValue == "N") {
@@ -373,10 +376,10 @@ public class World {
         }
     }
 
-    public void placeMarker(Ant a, markerType m) throws Exception {
+    public void placeMarker(Ant a, int i) throws Exception {
         int x, y;
         Ant thisAnt = a;
-        markerType marker = m;
+        int marker = i;
         x = a.positionX;
         y = a.positionY;
         String cellValue = world[x][y];
@@ -393,10 +396,10 @@ public class World {
         // Else, check if there is currently an enemy marker, if so, remove it. 
         else if (a.colour != 0) {
             if (cellValue == "W" || cellValue == "R" || cellValue == "Y" || cellValue == "X" || cellValue == "V" || cellValue == "N") {
-                clearMarker(x,y,a);
+                clearMarker(a);
             }
         } else if (cellValue == "Q" || cellValue == "E" || cellValue == "T" || cellValue == "Z" || cellValue == "C" || cellValue == "B") {
-            clearMarker(x,y,a);
+            clearMarker(a);
         } else {
             // Do nothing (I know this is bad but I dont want an exception).
         }

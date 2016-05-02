@@ -23,11 +23,11 @@ public class AntBrainParser {
     public List<List<String>> brainList = new ArrayList<>();
     public boolean validBrain = false;
 
-    public List<List<String>> AntBrainParser() {
+    public List<List<String>> AntBrainParser(File f) {
         Scanner s = null;
         // Import a file to be parsed. 
         try {
-            s = new Scanner(new File("ANTBRAIN"));
+            s = new Scanner(f);
             System.out.println("File Loaded");
         } catch (FileNotFoundException ex) {
             Logger.getLogger(AntBrainParser.class.getName()).log(Level.SEVERE, null, ex);
