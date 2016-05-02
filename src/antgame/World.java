@@ -7,6 +7,8 @@ package antgame;
 
 import java.util.Arrays;
 import java.util.Random;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -61,11 +63,11 @@ public class World {
             return -1;
         }
     }
-    
-    public void setFoodAt(int x, int y, int amount){
-        if(isInteger(world[x][y])){
+
+    public void setFoodAt(int x, int y, int amount) {
+        if (isInteger(world[x][y])) {
             world[x][y] = Integer.toString(Integer.parseInt(world[x][y]) + amount);
-        } else if(world[x][y] == "."){
+        } else if (world[x][y] == ".") {
             world[x][y] = Integer.toString(amount);
         }
     }
@@ -268,8 +270,6 @@ public class World {
         }
     }
 
-    
-
     //Currently returns the co-ordianates of the sensed cell entered as a direction in the parameter
     public int[] sensedCell(int[] pos, int dir, senseDir sense) throws Exception {
         int[] result;
@@ -277,7 +277,7 @@ public class World {
             case HERE:
                 return pos;
             case AHEAD:
-                result = adjacentCell(pos[0], pos[1],  dir);
+                result = adjacentCell(pos[0], pos[1], dir);
                 return result;
             case LEFTAHEAD:
                 int tempDirL = turn(0, dir);
@@ -291,19 +291,19 @@ public class World {
                 throw new Exception("Invaid Sense Direction");
         }
     }
-    
+
     public boolean rocky(int[] pos) {
         return world[pos[0]][pos[1]].equals("#");
     }
-    
+
     public int foodAt(int[] pos) {
         return Integer.parseInt(world[0][1]);
     }
-    
+
     public void setFoodAt(int[] pos, int f) {
         world[pos[0]][pos[1]] = Integer.toString(f);
     }
-    
+
     public boolean anthillAt(int[] pos, int colour) {
         if (colour == 0) {
             return (world[pos[0]][pos[1]].equals("+"));
@@ -312,8 +312,98 @@ public class World {
         }
     }
 
-    // Prints out the world so it can be viewed.
-    void testWorld() {
+    public String chooseMarker(markerType s, Ant a) throws Exception {
+
+        switch (s) {
+            case BASE:
+                if (a.colour == 0) {
+                    return "Q";
+                } else {
+                    return "W";
+                }
+
+            case WARNING:
+                if (a.colour == 0) {
+                    return "E";
+                } else {
+                    return "R";
+                }
+
+            case FriendWithFood:
+                if (a.colour == 0) {
+                    return "T";
+                } else {
+                    return "Y";
+                }
+
+            case FOOD:
+                if (a.colour == 0) {
+                    return "Z";
+                } else {
+                    return "X";
+                }
+
+            case EDGE:
+                if (a.colour == 0) {
+                    return "C";
+                } else {
+                    return "V";
+                }
+
+            case DIED:
+                if (a.colour == 0) {
+                    return "B";
+                } else {
+                    return "N";
+                }
+
+            default:
+                throw new Exception("Invaid Marker");
+        }
+    }
+
+    public void clearMarker(int x, int y, Ant a) {
+        String cellValue = world[x][y];
+        if (a.colour != 0) {
+            if (cellValue == "W" || cellValue == "R" || cellValue == "Y" || cellValue == "X" || cellValue == "V" || cellValue == "N") {
+                world[x][y] = ".";
+            }
+        } else if (cellValue == "Q" || cellValue == "E" || cellValue == "T" || cellValue == "Z" || cellValue == "C" || cellValue == "B") {
+            world[x][y] = ".";
+        }
+    }
+
+    public void placeMarker(Ant a, markerType m) throws Exception {
+        int x, y;
+        Ant thisAnt = a;
+        markerType marker = m;
+        x = a.positionX;
+        y = a.positionY;
+        String cellValue = world[x][y];
+        // Please Clarrify or add
+        // This method must now check the cell at the ants location to ensure no marker is placed
+        // if sensed cell has a marker check marker.team to see if it belongs to the enemy if it does  
+        // run remove method
+        
+        // If there is no marker and it is a free space, place the marker. 
+        if(world[x][y] == "."){
+            world[x][y] = chooseMarker(marker, a);
+        }
+        
+        // Else, check if there is currently an enemy marker, if so, remove it. 
+        else if (a.colour != 0) {
+            if (cellValue == "W" || cellValue == "R" || cellValue == "Y" || cellValue == "X" || cellValue == "V" || cellValue == "N") {
+                clearMarker(x,y,a);
+            }
+        } else if (cellValue == "Q" || cellValue == "E" || cellValue == "T" || cellValue == "Z" || cellValue == "C" || cellValue == "B") {
+            clearMarker(x,y,a);
+        } else {
+            // Do nothing (I know this is bad but I dont want an exception).
+        }
+}
+
+// Prints out the world so it can be viewed.
+void testWorld() {
         System.out.println("World Width = " + getMapWidth());
         System.out.println("World Height = " + getMapHeight());
 
