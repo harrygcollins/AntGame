@@ -29,11 +29,12 @@ public class PlayGame {
 
     private int roundCounter = 0;
 
-    PlayGame(List<List<String>> antBrain1, List<List<String>> antBrain2, World map) {
+    public PlayGame(File redFile, File blackFile, World map) {
 
         // Assign all the arugments to local variables.
-        redAntBrain = antBrain1;
-        blackAntBrain = antBrain2;
+        AntBrainParser parser = new AntBrainParser();
+        redAntBrain = parser.AntBrainParser(redFile);
+        blackAntBrain = parser.AntBrainParser(blackFile);
         gameWorld = map;
 
         //Initialise the scores
@@ -243,11 +244,7 @@ public class PlayGame {
         return false;
     }
 
-    private int runGame() {
-
-        AntBrainParser parser = new AntBrainParser();
-        redAntBrain = parser.AntBrainParser(new File("ANTBRAIN"));
-        blackAntBrain = parser.AntBrainParser(new File("ANTBRAIN"));
+    public int runGame() {
 
         // int to keep track of whos turn it is.
         int whichAntsTurn = 0;
