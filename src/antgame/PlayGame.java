@@ -28,7 +28,7 @@ public class PlayGame {
 
     private int roundCounter = 0;
 
-    PlayGame(List<List<String>> antBrain1, List<List<String>> antBrain2, World map) {
+    public PlayGame(List<List<String>> antBrain1, List<List<String>> antBrain2, World map) {
 
         // Assign all the arugments to local variables.
         redAntBrain = antBrain1;
@@ -226,7 +226,7 @@ public class PlayGame {
         return false;
     }
 
-    private int runGame() {
+    public int runGame() {
 
         // int to keep track of whos turn it is.
         int whichAntsTurn = 0;
