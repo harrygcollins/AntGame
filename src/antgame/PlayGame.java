@@ -80,9 +80,9 @@ public class PlayGame {
 
     private void step(Ant inputAnt) throws Exception {
         Ant currentAnt = inputAnt;
-        int currentAntX = currentAnt.positionX;
-        int currentAntY = currentAnt.positionY;
-        List<List<String>> brain = new ArrayList<>();
+        int currentAntX = currentAnt.getAntX();
+        int currentAntY = currentAnt.getAntY();
+        List<List<String>> brain = new ArrayList<List<String>>();
         if (inputAnt.colour == 0) {
             brain = redAntBrain;
         } else {
@@ -95,50 +95,67 @@ public class PlayGame {
             //if (currentAnt.colour == 0) { // Extract this and set variable brain to the colour of the ant brain. 
             switch (brain.get(currentAnt.state).get(0)) {
                 case "sense":
+                    
                     int[] currPos = new int[2];
-                    currPos[0] = currentAnt.getAntX();
-                    currPos[1] = currentAnt.getAntY();
+                    currPos[0] = currentAntX;
+                    currPos[1] = currentAntY;
                     int[] pdir = new int[2];
                     System.out.println("Current State: " + brain.get(currentAnt.state).get(0));
                     System.out.println("Next State: " + brain.get(currentAnt.state).get(1));
                     switch (brain.get(currentAnt.state).get(1)) {
                         case "here":
                             pdir = gameWorld.sensedCell(currPos, currentAnt.direction, senseDir.HERE);
+                            break;
                         case "ahead":
                             pdir = gameWorld.sensedCell(currPos, currentAnt.direction, senseDir.AHEAD);
+                            break;
                         case "leftahead":
                             pdir = gameWorld.sensedCell(currPos, currentAnt.direction, senseDir.LEFTAHEAD);
+                            break;
                         case "rightahead":
                             pdir = gameWorld.sensedCell(currPos, currentAnt.direction, senseDir.RIGHTAHEAD);
+                            break;
                     }
                     if (cellMatches(pdir, condition.valueOf(brain.get(currentAnt.state).get(4).toUpperCase()), 0)) {
                         currentAnt.setState(Integer.parseInt(brain.get(currentAnt.state).get(2)));
                     } else {
                         currentAnt.setState(Integer.parseInt(brain.get(currentAnt.state).get(3)));
                     }
+                    break;
 
                 case "mark":
+                    System.out.println("Current State: " + brain.get(currentAnt.state).get(0));
+                    System.out.println("Next State: " + brain.get(currentAnt.state).get(1));
                     gameWorld.placeMarker(currentAnt, Integer.parseInt(brain.get(currentAnt.state).get(1)));
                     currentAnt.setState(Integer.parseInt(brain.get(currentAnt.state).get(2)));
+                    break;
 
                 case "unmark":
+                    System.out.println("Current State: " + brain.get(currentAnt.state).get(0));
+                    System.out.println("Next State: " + brain.get(currentAnt.state).get(1));
                     gameWorld.clearMarker(currentAnt);
                     currentAnt.setState(Integer.parseInt(brain.get(currentAnt.state).get(2)));
+                    break;
 
                 case "pickup":
-                    if (!currentAnt.hasFood || gameWorld.getFoodAt(currentAnt.positionX, currentAnt.positionY) == 0) {
+                    System.out.println("Current State: " + brain.get(currentAnt.state).get(0));
+                    System.out.println("Next State: " + brain.get(currentAnt.state).get(1));
+                    if (gameWorld.getFoodAt(currentAnt.positionX, currentAnt.positionY) == 0) {
                         currentAnt.setState(Integer.parseInt(brain.get(currentAnt.state).get(2)));
-                    } else {
+                    } else if (!currentAnt.hasFood) {
                         gameWorld.setFoodAt(currentAnt.positionX, currentAnt.positionY, -1);
                         currentAnt.setHasFood(true);
                         currentAnt.setState(Integer.parseInt(brain.get(currentAnt.state).get(1)));
                     }
+                    break;
 
                 case "drop":
+                    System.out.println("Current State: " + brain.get(currentAnt.state).get(0));
+                    System.out.println("Next State: " + brain.get(currentAnt.state).get(1));
                     if (currentAnt.hasFood) {
-                        if (currentAnt.colour == 0 && "+".equals(gameWorld.getCellData(currentAnt.getAntX(), currentAnt.getAntY()))) {
+                        if (currentAnt.colour == 0 && gameWorld.getCellData(currentAnt.getAntX(), currentAnt.getAntY()).equals("+")) {
                             redScore++;
-                        } else if (currentAnt.colour == 1 && "-".equals(gameWorld.getCellData(currentAnt.getAntX(), currentAnt.getAntY()))) {
+                        } else if (currentAnt.colour == 1 && gameWorld.getCellData(currentAnt.getAntX(), currentAnt.getAntY()).equals("-")) {
                             blackScore++;
                         } else {
                             gameWorld.setFoodAt(currentAnt.positionX, currentAnt.positionY, 1);
@@ -146,18 +163,24 @@ public class PlayGame {
                         currentAnt.setHasFood(false);
                     }
                     currentAnt.setState(Integer.parseInt(brain.get(currentAnt.state).get(1)));
+                    break;
 
                 case "turn":
+                    System.out.println("Current State: " + brain.get(currentAnt.state).get(0));
+                    System.out.println("Next State: " + brain.get(currentAnt.state).get(1));
                     // Gets left or right from the brain and turns accordingly.
                     currentAnt.setDirection(brain.get(currentAnt.state).get(1));
                     currentAnt.setState(Integer.parseInt(brain.get(currentAnt.state).get(2)));
+                    break;
 
                 case "move":
+                    System.out.println("Current State: " + brain.get(currentAnt.state).get(0));
+                    System.out.println("Next State: " + brain.get(currentAnt.state).get(1));
                     int[] newPos;
                     newPos = gameWorld.adjacentCell(currentAnt.positionX, currentAnt.positionY, currentAnt.direction);
-                    if ("#".equals(gameWorld.getCellData(newPos[0], newPos[1]))) {
+                    if (gameWorld.getCellData(newPos[0], newPos[1]).equals("#")) {
                         currentAnt.setState(Integer.parseInt(brain.get(currentAnt.state).get(2)));
-                    } else if (isAntAt(currentAnt.positionX, currentAnt.positionY)) {
+                    } else if (isAntAt(newPos[0], newPos[1])) {
                         currentAnt.setState(Integer.parseInt(brain.get(currentAnt.state).get(2)));
                     } else {
                         currentAnt.setPosition(newPos[0], newPos[1]);
@@ -165,8 +188,11 @@ public class PlayGame {
                         currentAnt.setResting(14);
                         // *** Check if the ant is surrounded *** ///
                     }
+                    break;
 
                 case "flip":
+                    System.out.println("Current State: " + brain.get(currentAnt.state).get(0));
+                    System.out.println("Next State: " + brain.get(currentAnt.state).get(1));
                     RandomNumber rand = new RandomNumber(100);
                     int randomNumber = rand.randomInt(Integer.parseInt(brain.get(currentAnt.state).get(1)));
                     if (randomNumber == 0) {
@@ -174,6 +200,7 @@ public class PlayGame {
                     } else {
                         currentAnt.setState(Integer.parseInt(brain.get(currentAnt.state).get(3)));
                     }
+                    break;
             }
 
         }
@@ -278,7 +305,7 @@ public class PlayGame {
         System.out.println("Length of Black Ant Array: " + blackAnts.size());
 
         // outer loop for rounds.
-        while (roundCounter <= 30) {
+        while (roundCounter <= 50) {
             int redAntIndexCounter = 0;
             int blackAntIndexCounter = 0;
             for (int i = 0; i < redAnts.size() + blackAnts.size(); i++) {
@@ -316,6 +343,7 @@ public class PlayGame {
 
                 }
             }
+            roundCounter++;
         }
 
         //Return the game score  

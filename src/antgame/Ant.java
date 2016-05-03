@@ -88,7 +88,7 @@ public class Ant {
     }
     
     public void setDirection(String dir){
-        if(dir == "right"){
+        if(dir.equals("right")){
             direction = turn(1);
         } else {
             direction = turn(2);
