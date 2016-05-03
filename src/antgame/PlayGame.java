@@ -7,6 +7,7 @@ package antgame;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -181,19 +182,22 @@ public class PlayGame {
     //returns true if ant at position given, false otherwise
     private boolean isAntAt(int x, int y) {
         Ant antCheck = redAnts.get(0);
-        while (redAnts.iterator().hasNext()) {
+        Iterator itr = redAnts.iterator();
+        while (itr.hasNext()) {
             if (antCheck.positionX == x && antCheck.positionY == y) {
                 return true;
             }
-            antCheck = redAnts.iterator().next();
+            antCheck = (Ant)itr.next();
         }
 
+        
         antCheck = blackAnts.get(0);
-        while (blackAnts.iterator().hasNext()) {
+        Iterator itrB = blackAnts.iterator();
+        while (itrB.hasNext()) {
             if (antCheck.positionX == x && antCheck.positionY == y) {
                 return true;
             }
-            antCheck = blackAnts.iterator().next();
+            antCheck = (Ant)itrB.next();
         }
         return false;
     }
@@ -201,19 +205,21 @@ public class PlayGame {
     //returns the ant at the position given
     private Ant antAt(int x, int y) throws Exception {
         Ant antCheck = redAnts.get(0);
-        while (redAnts.iterator().hasNext()) {
+        Iterator itr = redAnts.iterator();
+        while (itr.hasNext()) {
             if (antCheck.positionX == x && antCheck.positionY == y) {
                 return antCheck;
             }
-            antCheck = redAnts.iterator().next();
+            antCheck = (Ant)itr.next();
         }
 
         antCheck = blackAnts.get(0);
-        while (blackAnts.iterator().hasNext()) {
+        Iterator itrB = blackAnts.iterator();
+        while (itrB.hasNext()) {
             if (antCheck.positionX == x && antCheck.positionY == y) {
                 return antCheck;
             }
-            antCheck = blackAnts.iterator().next();
+            antCheck = (Ant)itr.next();
         }
         throw new Exception("No ant in position given");
     }
@@ -262,7 +268,7 @@ public class PlayGame {
     public int runGame() {
 
         // int to keep track of whos turn it is.
-        int whichAntsTurn = 0;
+        boolean whichAntsTurn = true;
 
         // Initialise scores
         redScore = 0;
@@ -276,8 +282,9 @@ public class PlayGame {
             int redAntIndexCounter = 0;
             int blackAntIndexCounter = 0;
             for (int i = 0; i < redAnts.size() + blackAnts.size(); i++) {
+                System.out.println("i : " + i);
                 // Red ants Turn
-                if (whichAntsTurn == 0) {   // RED Turn
+                if (whichAntsTurn) {   // RED Turn
                     // If the ant is alive
                     if (redAnts.get(redAntIndexCounter).isDead == false) {
                         try {
@@ -286,7 +293,7 @@ public class PlayGame {
                             step(redAnts.get(redAntIndexCounter));
                             redAntIndexCounter++;
                             // Make it black ants turn.
-                            whichAntsTurn = 1;
+                            whichAntsTurn = false;
                         } catch (Exception ex) {
 
                             System.out.println("Exception: Red ant " + redAntIndexCounter + " NotFound");
@@ -301,7 +308,7 @@ public class PlayGame {
                             step(blackAnts.get(blackAntIndexCounter));
                             blackAntIndexCounter++;
                             // Make it red ants turn.
-                            whichAntsTurn = 0;
+                            whichAntsTurn = true;
                         } catch (Exception ex) {
                             System.out.println("Exception: Black ant " + blackAntIndexCounter + " NotFound");
                         }
