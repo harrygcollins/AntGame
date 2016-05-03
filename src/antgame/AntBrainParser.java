@@ -33,10 +33,11 @@ public class AntBrainParser {
             Logger.getLogger(AntBrainParser.class.getName()).log(Level.SEVERE, null, ex);
         }
         //Scan the first line of the file.
-        String line = s.nextLine();
+        
         
         // For each line in the file
         while (s.hasNextLine()) {
+            String line = s.nextLine();
             //Create a new scanner and array list for this row. 
             Scanner rowScanner = new Scanner(line);
             List<String> tempList = new ArrayList<>();
@@ -49,6 +50,7 @@ public class AntBrainParser {
                     tempList.add(temp);
                     System.out.println("String added to list: " + temp);
                 } else {
+                    System.out.println("Found ; ");
                     break;
                 }
             }
