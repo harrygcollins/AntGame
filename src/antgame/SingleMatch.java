@@ -17,7 +17,6 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.File;
-import java.util.ArrayList;
 import java.util.List;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
@@ -28,7 +27,6 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
-import javax.swing.JTextField;
 import javax.swing.border.LineBorder;
 import javax.swing.border.TitledBorder;
 
@@ -57,7 +55,7 @@ public class SingleMatch extends JFrame {
         c.add(createUsersInfoAndStart(), BorderLayout.WEST);
 
         c.add(createWorldField(), BorderLayout.CENTER);
-        c.setPreferredSize(new Dimension(800, 600));
+        c.setPreferredSize(new Dimension(1200, 900));
 
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         pack();
@@ -196,15 +194,15 @@ public class SingleMatch extends JFrame {
     }
 
     public JPanel createWorldField() {
-        JTextArea world;
+        JTextArea worldField;
         JPanel outerPanel;
 
         outerPanel = new JPanel();
         outerPanel.setLayout(new BoxLayout(outerPanel, BoxLayout.LINE_AXIS));
         outerPanel.setBorder(new TitledBorder(new LineBorder(Color.GRAY, 1), "Ant-World"));
-        world = new JTextArea(newWorld.testWorld());
-
-        outerPanel.add(world);
+        worldField = new JTextArea(newWorld.testWorld());
+        worldField.setFont(new Font(Font.MONOSPACED, Font.PLAIN, 12));
+        outerPanel.add(worldField);
 
         return outerPanel;
     }

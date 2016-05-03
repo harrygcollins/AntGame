@@ -429,7 +429,7 @@ public class World {
                 w = " " + printTest;
             } else {
                 System.out.println(printTest);
-                w = " " + printTest;
+                w = printTest;
             }
             printTest = "";
             t += w + "\n";
