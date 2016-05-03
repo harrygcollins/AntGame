@@ -21,8 +21,8 @@ public class PlayGame {
     private ArrayList<Ant> redAnts = new ArrayList<>();
     private ArrayList<Ant> blackAnts = new ArrayList<>();
     private World gameWorld;
-    private List<List<String>> redAntBrain;
-    private List<List<String>> blackAntBrain;
+    public List<List<String>> redAntBrain = new ArrayList<>();
+    public List<List<String>> blackAntBrain = new ArrayList<>();
 
     private int redScore;
     private int blackScore;
@@ -33,8 +33,15 @@ public class PlayGame {
 
         // Assign all the arugments to local variables.
         AntBrainParser parser = new AntBrainParser();
+        
+        
+        System.out.println("Making red ant brain");
         redAntBrain = parser.AntBrainParser(redFile);
+        System.out.println("Red ant brain size: " + redAntBrain.size());
+        
+        
         blackAntBrain = parser.AntBrainParser(blackFile);
+        System.out.println("Black ant brain size: " + blackAntBrain.size());
         gameWorld = map;
 
         //Initialise the scores
@@ -52,10 +59,12 @@ public class PlayGame {
                     switch (gameWorld.getCellData(i, j)) {
                         case "+":
                             redAnts.add(new Ant(0, j, i, redIdCounter));
+                            System.out.println("Red ant " + redIdCounter + " added!");
                             redIdCounter++;
                             break;
                         case "-":
                             blackAnts.add(new Ant(1, j, i, blackIdCounter));
+                            System.out.println("Black ant " + blackIdCounter + "  added!");
                             blackIdCounter++;
                             break;
                     }
@@ -85,6 +94,8 @@ public class PlayGame {
                         currPos[0] = currentAnt.positionX;
                         currPos[1] = currentAnt.positionY;
                         int[] pdir = null;
+                        System.out.println("Current State: " + brain.get(currentAnt.state).get(0));
+                        System.out.println("Next State: " + brain.get(currentAnt.state).get(1));
                         switch (brain.get(currentAnt.state).get(1)) {
                             case "here":
                                 pdir = gameWorld.sensedCell(currPos, currentAnt.direction, senseDir.HERE);
@@ -252,6 +263,9 @@ public class PlayGame {
         // Initialise scores
         redScore = 0;
         blackScore = 0;
+        
+        System.out.println("Length of Red Ant Array: " + redAnts.size());
+        System.out.println("Length of Black Ant Array: " + blackAnts.size());
 
         // outer loop for rounds.
         while (roundCounter <= 30) {
@@ -264,10 +278,12 @@ public class PlayGame {
                     if (redAnts.get(redAntIndexCounter).isDead == false) {
                         try {
                             // *** Call do move shizzle method.
+                            System.out.println(redAnts.get(redAntIndexCounter));
                             step(redAnts.get(redAntIndexCounter));
                             redAntIndexCounter++;
                         } catch (Exception ex) {
-                            System.out.println("Exception: antNotFound");
+                            
+                            System.out.println("Exception: Red ant " + redAntIndexCounter + " NotFound");
                         }
 
                         // Make it black ants turn.
@@ -281,7 +297,7 @@ public class PlayGame {
                                 step(blackAnts.get(blackAntIndexCounter));
                                 blackAntIndexCounter++;
                             } catch (Exception ex) {
-                                System.out.println("Exception: antNotFound");
+                                System.out.println("Exception: Black ant " + blackAntIndexCounter + " NotFound");
                             }
                         }
                         // Make it red ants turn.

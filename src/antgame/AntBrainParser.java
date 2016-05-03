@@ -63,6 +63,8 @@ public class AntBrainParser {
 
 
         if (IsValidBrain(brainList)) {
+            System.out.println("Brain returned");
+            System.out.println("Brain returned size: " + brainList.size());
             return brainList;
         } else {
             return null;
