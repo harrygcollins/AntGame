@@ -5,9 +5,12 @@
  */
 package Tests;
 
+import antgame.AntBrainParser;
 import antgame.PlayGame;
 import antgame.World;
 import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -35,12 +38,20 @@ public class PlayGameTest {
     //
     @Test
     public void wholeTest() {
+        
+        List<List<String>> brainList1 = new ArrayList<>();
+        List<List<String>> brainList2 = new ArrayList<>();
+        
         File f1 = new File("ANTBRAIN");
         File f2 = new File("ANTBRAIN");
         
         World world = new World(50, 50);
+        AntBrainParser parser = new AntBrainParser();
         
-        PlayGame game = new PlayGame(f1, f2, world);
+        brainList1 = parser.AntBrainParser(f1);
+        brainList2 = parser.AntBrainParser(f2);
+        
+        PlayGame game = new PlayGame(brainList1, brainList2, world);
         int winner = game.runGame();
         
         if(winner == 0 ){

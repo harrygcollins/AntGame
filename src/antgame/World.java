@@ -297,7 +297,15 @@ public class World {
     }
 
     public int foodAt(int[] pos) {
-        return Integer.parseInt(world[0][1]);
+        if (world[pos[0]][pos[1]].startsWith("1") || world[pos[0]][pos[1]].startsWith("2") || world[pos[0]][pos[1]].startsWith("3") || world[pos[0]][pos[1]].startsWith("4")
+                || world[pos[0]][pos[1]].startsWith("5") || world[pos[0]][pos[1]].startsWith("6") || world[pos[0]][pos[1]].startsWith("7") || world[pos[0]][pos[1]].startsWith("8")
+                || world[pos[0]][pos[1]].startsWith("9")) {
+            return Integer.parseInt(world[pos[0]][pos[1]]);
+        } else {
+            return -1;
+
+        }
+
     }
 
     public void setFoodAt(int[] pos, int f) {
@@ -323,35 +331,35 @@ public class World {
                     return "W";
                 }
             case 2:
-            //case WARNING:
+                //case WARNING:
                 if (a.colour == 0) {
                     return "E";
                 } else {
                     return "R";
                 }
             case 3:
-            //case FriendWithFood:
+                //case FriendWithFood:
                 if (a.colour == 0) {
                     return "T";
                 } else {
                     return "Y";
                 }
             case 4:
-            //case FOOD:
+                //case FOOD:
                 if (a.colour == 0) {
                     return "Z";
                 } else {
                     return "X";
                 }
             case 5:
-            //case EDGE:
+                //case EDGE:
                 if (a.colour == 0) {
                     return "C";
                 } else {
                     return "V";
                 }
             case 6:
-            //case DIED:
+                //case DIED:
                 if (a.colour == 0) {
                     return "B";
                 } else {
@@ -387,13 +395,11 @@ public class World {
         // This method must now check the cell at the ants location to ensure no marker is placed
         // if sensed cell has a marker check marker.team to see if it belongs to the enemy if it does  
         // run remove method
-        
+
         // If there is no marker and it is a free space, place the marker. 
-        if(world[x][y] == "."){
+        if (world[x][y] == ".") {
             world[x][y] = chooseMarker(marker, a);
-        }
-        
-        // Else, check if there is currently an enemy marker, if so, remove it. 
+        } // Else, check if there is currently an enemy marker, if so, remove it. 
         else if (a.colour != 0) {
             if (cellValue == "W" || cellValue == "R" || cellValue == "Y" || cellValue == "X" || cellValue == "V" || cellValue == "N") {
                 clearMarker(a);
@@ -403,15 +409,16 @@ public class World {
         } else {
             // Do nothing (I know this is bad but I dont want an exception).
         }
-}
+    }
 
 // Prints out the world so it can be viewed.
-void testWorld() {
+    public String testWorld() {
         System.out.println("World Width = " + getMapWidth());
         System.out.println("World Height = " + getMapHeight());
 
         String printTest = "";
-
+        String w;
+        String t = "";
         for (int i = 0; i < mapHeight; i++) {
 
             for (int j = 0; j < mapWidth; j++) {
@@ -419,11 +426,16 @@ void testWorld() {
             }
             if (i % 2 == 0) {
                 System.out.println(" " + printTest);
+                w = " " + printTest;
             } else {
                 System.out.println(printTest);
+                w = " " + printTest;
             }
             printTest = "";
+            t += w + "\n";
+
         }
+        return t;
     }
 
 }

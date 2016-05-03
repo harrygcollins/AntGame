@@ -23,6 +23,7 @@ public class AntBrainParser {
     public List<List<String>> brainList = new ArrayList<>();
     public boolean validBrain = false;
 
+
     public List<List<String>> AntBrainParser(File f) {
         Scanner s = null;
         // Import a file to be parsed. 
@@ -49,6 +50,7 @@ public class AntBrainParser {
                 if (!(temp.contains(";"))) {
                     tempList.add(temp);
                     System.out.println("String added to list: " + temp);
+                    System.out.println("Temp List Size: " + tempList.size());
                 } else {
                     System.out.println("Found ; ");
                     break;
@@ -57,18 +59,24 @@ public class AntBrainParser {
             rowScanner.close();
             // Add the inner arraylist to the outer. 
             brainList.add(tempList);
+            System.out.println("Brain List Size: " + brainList.size());
+            
         }
         // Close the scanner. 
         s.close();
 
-
-        if (IsValidBrain(brainList)) {
-            System.out.println("Brain returned");
-            System.out.println("Brain returned size: " + brainList.size());
-            return brainList;
-        } else {
-            return null;
-        }
+        List<List<String>> brainListValid = new ArrayList<>();
+        brainListValid = brainList;
+        
+        return brainList;
+        
+//        if (IsValidBrain(brainListValid)) {
+//            System.out.println("Brain returned");
+//            System.out.println("Brain returned size: " + brainList.size());
+//            return brainList;
+//        } else {
+//            return null;
+//        }
     }
 
     public Boolean IsValidBrain(List<List<String>> antBrain) throws SyntaxException {

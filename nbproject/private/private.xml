@@ -2,8 +2,17 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
+        <group>
+            <file>file:/C:/Users/ADigenis/Documents/GitHub/AntGame/src/antgame/SingleMatch.java</file>
+            <file>file:/C:/Users/ADigenis/Documents/GitHub/AntGame/src/antgame/AntBrainParser.java</file>
+            <file>file:/C:/Users/ADigenis/Documents/GitHub/AntGame/src/antgame/PlayGame.java</file>
+            <file>file:/C:/Users/ADigenis/Documents/GitHub/AntGame/src/antgame/AntGame.java</file>
+            <file>file:/C:/Users/ADigenis/Documents/GitHub/AntGame/src/antgame/World.java</file>
+            <file>file:/C:/Users/ADigenis/Documents/GitHub/AntGame/src/antgame/RandomNumber.java</file>
+        </group>
         <group name="Labs">
             <file>file:/Users/Harry/Documents/AntGame/test/Tests/RandomNumberTest.java</file>
+            <file>file:/Users/Harry/Documents/AntGame/test/Tests/PlayGameTest.java</file>
             <file>file:/Users/Harry/Documents/AntGame/src/antgame/RandomNumber.java</file>
             <file>file:/Users/Harry/Documents/AntGame/src/antgame/AntBrainParser.java</file>
             <file>file:/Users/Harry/Documents/AntGame/src/antgame/AntGame.java</file>
@@ -12,6 +21,7 @@
             <file>file:/Users/Harry/Documents/AntGame/src/antgame/senseDir.java</file>
             <file>file:/Users/Harry/Documents/AntGame/src/antgame/World.java</file>
             <file>file:/Users/Harry/Documents/AntGame/test/Tests/AntBrainParserTest.java</file>
+            <file>file:/Users/Harry/Documents/AntGame/src/antgame/markerType.java</file>
             <file>file:/Users/Harry/Documents/AntGame/src/antgame/Ant.java</file>
             <file>file:/Users/Harry/Documents/AntGame/src/antgame/MainMenu.java</file>
             <file>file:/Users/Harry/Documents/AntGame/src/antgame/Chemistry.java</file>
