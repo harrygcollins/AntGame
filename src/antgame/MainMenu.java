@@ -158,8 +158,8 @@ public class MainMenu extends JFrame {
              */
             @Override
             public void actionPerformed(ActionEvent e) {
-                dispose();
-                Tournament t = new Tournament();
+                // dispose();
+                // Tournament t = new Tournament();
 
             }
         });

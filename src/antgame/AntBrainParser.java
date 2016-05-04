@@ -20,10 +20,21 @@ import jdk.nashorn.internal.runtime.regexp.joni.exception.SyntaxException;
  */
 public class AntBrainParser {
 
+    /**
+     * Array List variable to hold the ant brain.
+     */
     public List<List<String>> brainList = new ArrayList<>();
+
+    /**
+     * Boolean to keep track if the brain is valid or not.
+     */
     public boolean validBrain = false;
 
-
+    /**
+     * Constructor for the ant brain parser. 
+     * @param f The input file ready to be parsed. 
+     * @return the Array list ( List<List<String>> ) containing the ant brain. 
+     */
     public List<List<String>> AntBrainParser(File f) {
         Scanner s = null;
         // Import a file to be parsed. 
@@ -69,16 +80,14 @@ public class AntBrainParser {
         brainListValid = brainList;
         
         return brainList;
-        
-//        if (IsValidBrain(brainListValid)) {
-//            System.out.println("Brain returned");
-//            System.out.println("Brain returned size: " + brainList.size());
-//            return brainList;
-//        } else {
-//            return null;
-//        }
     }
 
+    /**
+     * The parser to check if the brain is valid.
+     * @param antBrain Input the Array list created from the file. 
+     * @return True if the brain is valid, false otherwise. 
+     * @throws SyntaxException
+     */
     public Boolean IsValidBrain(List<List<String>> antBrain) throws SyntaxException {
         List<List<String>> token = antBrain;
         

@@ -35,6 +35,20 @@ public class WorldTest {
     public void testWorldInput() {
         World numbers = new World(100, 100);
         assertEquals(numbers.getMapHeight(), 100);
+        assertEquals(numbers.getMapWidth(), 100);
+    }
     
+    @Test
+    public void testRocksOnOutside(){
+        World testWorld = new World (100, 100);
+        boolean isCorrect = true;
+        
+        for(int i = 0; i < testWorld.getMapWidth(); i++){
+            for(int j = 0; j < testWorld.getMapHeight(); j++){
+                if(i == 0 || j == 0 || i == testWorld.getMapWidth() - 1 || j == testWorld.getMapHeight() - 1){
+                    isCorrect = ("#".equals(testWorld.getCellData(i, j)));
+                }
+            }
+        }
     }
 }

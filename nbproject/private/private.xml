@@ -12,21 +12,6 @@
         </group>
         <group name="Labs">
             <file>file:/Users/Harry/Documents/AntGame/test/Tests/RandomNumberTest.java</file>
-            <file>file:/Users/Harry/Documents/AntGame/test/Tests/PlayGameTest.java</file>
-            <file>file:/Users/Harry/Documents/AntGame/src/antgame/RandomNumber.java</file>
-            <file>file:/Users/Harry/Documents/AntGame/src/antgame/AntBrainParser.java</file>
-            <file>file:/Users/Harry/Documents/AntGame/src/antgame/AntGame.java</file>
-            <file>file:/Users/Harry/Documents/AntGame/src/antgame/PlayGame.java</file>
-            <file>file:/Users/Harry/Documents/AntGame/src/antgame/Tournament.java</file>
-            <file>file:/Users/Harry/Documents/AntGame/src/antgame/senseDir.java</file>
-            <file>file:/Users/Harry/Documents/AntGame/src/antgame/World.java</file>
-            <file>file:/Users/Harry/Documents/AntGame/test/Tests/AntBrainParserTest.java</file>
-            <file>file:/Users/Harry/Documents/AntGame/src/antgame/markerType.java</file>
-            <file>file:/Users/Harry/Documents/AntGame/src/antgame/Ant.java</file>
-            <file>file:/Users/Harry/Documents/AntGame/src/antgame/MainMenu.java</file>
-            <file>file:/Users/Harry/Documents/AntGame/src/antgame/Chemistry.java</file>
-            <file>file:/Users/Harry/Documents/AntGame/src/antgame/SingleMatch.java</file>
-            <file>file:/Users/Harry/Documents/AntGame/test/Tests/WorldTest.java</file>
         </group>
     </open-files>
 </project-private>

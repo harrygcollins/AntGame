@@ -148,7 +148,7 @@ public class World {
     // Try and keep the map bigger than 20x20 ish.
     private void addFood() {
         Random r = new Random();
-        int foodNeeded = 3;
+        int foodNeeded = 6;
         int foodPlaced = 0;
         boolean spaceAvaliable;
         int Low = 0;
