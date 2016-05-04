@@ -19,7 +19,7 @@ public class World {
     private static World instance = null;
     private int mapWidth;
     private int mapHeight;
-    private final String[][] world;
+    private String[][] world;
 
     // Constructor for the World.
     public World(int MapWidth, int MapHeight) {
@@ -56,6 +56,9 @@ public class World {
         return world[x][y];
     }
 
+    public void setWorld(String w[][]){
+        world = w;
+    }
     public int getFoodAt(int x, int y) {
         if (isInteger(world[x][y])) {
             return Integer.parseInt(world[x][y]);

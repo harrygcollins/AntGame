@@ -5,6 +5,7 @@
  */
 package Tests;
 
+import antgame.World;
 import antgame.WorldParser;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -38,7 +39,7 @@ public class WorldParserTest {
     
         WorldParser wParser = new WorldParser();
         try {
-            String[][] world = wParser.WorldParser(new File("WorldParseTest"));
+            World world = wParser.WorldParser(new File("WorldParseTest"));
         } catch (FileNotFoundException ex) {
             Logger.getLogger(WorldParserTest.class.getName()).log(Level.SEVERE, null, ex);
         }

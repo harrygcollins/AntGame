@@ -132,7 +132,7 @@ public class MainMenu extends JFrame {
              * the button
              *
              * @param me the event that mouse entered button area
-             *
+             */
             @Override
             public void mouseEntered(MouseEvent me) {
                 tournament.setFont(new Font("Times New Roman", Font.BOLD, 60));
@@ -158,8 +158,8 @@ public class MainMenu extends JFrame {
              */
             @Override
             public void actionPerformed(ActionEvent e) {
-                // dispose();
-                // Tournament t = new Tournament();
+                 dispose();
+                 Tournament t = new Tournament();
 
             }
         });

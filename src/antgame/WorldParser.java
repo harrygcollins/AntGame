@@ -22,8 +22,9 @@ public class WorldParser {
     int x;
     int y;
     public String[][] world;
+    World newWorld;
     
-    public String[][] WorldParser(File f) throws FileNotFoundException{
+    public World WorldParser(File f) throws FileNotFoundException{
         try {
             
             // Import a file to be parsed.
@@ -61,7 +62,9 @@ public class WorldParser {
             Logger.getLogger(WorldParser.class.getName()).log(Level.SEVERE, null, ex);
         }
      
-        return world;
+        newWorld = new World(x, y);
+        newWorld.setWorld(world);
+        return newWorld;
         
     }
         

@@ -16,7 +16,10 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
@@ -25,6 +28,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.border.LineBorder;
 import javax.swing.border.TitledBorder;
@@ -38,9 +42,10 @@ public class SingleMatch extends JFrame {
 
     private List<List<String>> antBrainTeam1;
     private List<List<String>> antBrainTeam2;
-    private World newWorld = new World(50, 50);
+    private World newWorld = null;
     private PlayGame newGame;
     private int winner;
+    JTextArea worldField;
 
     /**
      * Constructor of the single match. Builds the UI for single match
@@ -77,7 +82,7 @@ public class SingleMatch extends JFrame {
     private JPanel createUsersInfoAndStart() {
         JPanel outerPanel, userInfo;
         JLabel team1, team2;
-        JButton uploadTeam1, uploadTeam2, startBtn;
+        JButton uploadTeam1, uploadTeam2, startBtn, uploadWorld;
 
         userInfo = new JPanel();
         outerPanel = new JPanel();
@@ -127,7 +132,12 @@ public class SingleMatch extends JFrame {
              */
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (antBrainTeam1 != null && antBrainTeam2 != null && newWorld != null) {
+                if (antBrainTeam1 != null && antBrainTeam2 != null) {
+                    if (newWorld == null) {
+                        newWorld = new World(50, 50);
+                        worldField.setText(newWorld.testWorld());
+                        JOptionPane.showMessageDialog(rootPane, "A random world will be used");
+                    }
                     newGame = new PlayGame(antBrainTeam1, antBrainTeam2, newWorld);
                     winner = newGame.runGame();
                     if (winner == 0) {
@@ -137,132 +147,251 @@ public class SingleMatch extends JFrame {
                     } else {
                         JOptionPane.showMessageDialog(rootPane, "Draw!");
                     }
+                    antBrainTeam1 = null;
+                    antBrainTeam2 = null;
+                    newWorld = null;
+                    worldField.setText(null);
                 } else {
                     System.out.println();
                     JOptionPane.showMessageDialog(rootPane, "Ant-Brains were not uploaded!");
                 }
             }
-        });
+        }
+        );
 
         uploadTeam1 = new JButton("Upload ant-brain");
-        uploadTeam1.setBorderPainted(false);
-        uploadTeam1.setFocusPainted(false);
-        uploadTeam1.setContentAreaFilled(false);
-        uploadTeam1.setFont(new Font("Times New Roman", Font.PLAIN, 18));
+
+        uploadTeam1.setBorderPainted(
+                false);
+        uploadTeam1.setFocusPainted(
+                false);
+        uploadTeam1.setContentAreaFilled(
+                false);
+        uploadTeam1.setFont(
+                new Font("Times New Roman", Font.PLAIN, 18));
         /**
          * creates effect when hovering button
          */
-        uploadTeam1.addMouseListener(new MouseAdapter() {
-            Font f = uploadTeam1.getFont();
+        uploadTeam1.addMouseListener(
+                new MouseAdapter() {
+                    Font f = uploadTeam1.getFont();
 
-            /**
-             * makes the text of the button bold when mouse enters the area of
-             * the button
-             *
-             * @param me the event that mouse entered button area
-             */
-            @Override
-            public void mouseEntered(MouseEvent me) {
-                uploadTeam1.setFont(new Font("Times New Roman", Font.BOLD, 18));
-            }
+                    /**
+                     * makes the text of the button bold when mouse enters the
+                     * area of the button
+                     *
+                     * @param me the event that mouse entered button area
+                     */
+                    @Override
+                    public void mouseEntered(MouseEvent me
+                    ) {
+                        uploadTeam1.setFont(new Font("Times New Roman", Font.BOLD, 18));
+                    }
 
-            /**
-             * sets the font of the button as it was before entering the area
-             * button
-             *
-             * @param me the event that mouse left button area
-             */
-            @Override
-            public void mouseExited(MouseEvent me) {
-                uploadTeam1.setFont(f);
-            }
-        });
-        uploadTeam1.addActionListener(new ActionListener() {
-            /**
-             * handles the event when the button is clicked. Opens a file
-             * chooser window and adds text of the file into array list.
-             *
-             * @param e the event the table has been clicked.
-             */
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                JFileChooser chooser = new JFileChooser();
-                int v = chooser.showOpenDialog(null);
-                if (v == JFileChooser.APPROVE_OPTION) {
-                    File antBrain = chooser.getSelectedFile();
-                    AntBrainParser ant = new AntBrainParser();
-                    antBrainTeam1 = ant.AntBrainParser(antBrain);
+                    /**
+                     * sets the font of the button as it was before entering the
+                     * area button
+                     *
+                     * @param me the event that mouse left button area
+                     */
+                    @Override
+                    public void mouseExited(MouseEvent me
+                    ) {
+                        uploadTeam1.setFont(f);
+                    }
                 }
-            }
-        });
+        );
+        uploadTeam1.addActionListener(
+                new ActionListener() {
+                    /**
+                     * handles the event when the button is clicked. Opens a
+                     * file chooser window and adds text of the file into array
+                     * list.
+                     *
+                     * @param e the event the table has been clicked.
+                     */
+                    @Override
+                    public void actionPerformed(ActionEvent e
+                    ) {
+                        JFileChooser chooser = new JFileChooser();
+                        int v = chooser.showOpenDialog(null);
+                        if (v == JFileChooser.APPROVE_OPTION) {
+                            File antBrain = chooser.getSelectedFile();
+                            AntBrainParser ant = new AntBrainParser();
+                            antBrainTeam1 = ant.AntBrainParser(antBrain);
+                        }
+                    }
+                }
+        );
 
         uploadTeam2 = new JButton("Upload ant-brain");
-        uploadTeam2.setBorderPainted(false);
-        uploadTeam2.setFocusPainted(false);
-        uploadTeam2.setContentAreaFilled(false);
-        uploadTeam2.setFont(new Font("Times New Roman", Font.PLAIN, 18));
+
+        uploadTeam2.setBorderPainted(
+                false);
+        uploadTeam2.setFocusPainted(
+                false);
+        uploadTeam2.setContentAreaFilled(
+                false);
+        uploadTeam2.setFont(
+                new Font("Times New Roman", Font.PLAIN, 18));
         /**
          * creates effect when hovering button
          */
-        uploadTeam2.addMouseListener(new MouseAdapter() {
-            Font f = uploadTeam2.getFont();
+        uploadTeam2.addMouseListener(
+                new MouseAdapter() {
+                    Font f = uploadTeam2.getFont();
 
-            /**
-             * makes the text of the button bold when mouse enters the area of
-             * the button
-             *
-             * @param me the event that mouse entered button area
-             */
-            @Override
-            public void mouseEntered(MouseEvent me) {
-                uploadTeam2.setFont(new Font("Times New Roman", Font.BOLD, 18));
-            }
+                    /**
+                     * makes the text of the button bold when mouse enters the
+                     * area of the button
+                     *
+                     * @param me the event that mouse entered button area
+                     */
+                    @Override
+                    public void mouseEntered(MouseEvent me
+                    ) {
+                        uploadTeam2.setFont(new Font("Times New Roman", Font.BOLD, 18));
+                    }
 
-            /**
-             * sets the font of the button as it was before entering the area
-             * button
-             *
-             * @param me the event that mouse left button area
-             */
-            @Override
-            public void mouseExited(MouseEvent me) {
-                uploadTeam2.setFont(f);
-            }
-        });
-        uploadTeam2.addActionListener(new ActionListener() {
-            /**
-             * handles the event when the button is clicked. Opens a file
-             * chooser window and adds text of the file into array list.
-             *
-             * @param e the event the table has been clicked.
-             */
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                JFileChooser chooser = new JFileChooser();
-                int v = chooser.showOpenDialog(null);
-                if (v == JFileChooser.APPROVE_OPTION) {
-                    File antBrain = chooser.getSelectedFile();
-                    AntBrainParser ant = new AntBrainParser();
-                    antBrainTeam2 = ant.AntBrainParser(antBrain);
+                    /**
+                     * sets the font of the button as it was before entering the
+                     * area button
+                     *
+                     * @param me the event that mouse left button area
+                     */
+                    @Override
+                    public void mouseExited(MouseEvent me
+                    ) {
+                        uploadTeam2.setFont(f);
+                    }
                 }
-            }
-        });
-        outerPanel.setLayout(new BorderLayout());
-        userInfo.setLayout(new BoxLayout(userInfo, BoxLayout.PAGE_AXIS));
+        );
+        uploadTeam2.addActionListener(
+                new ActionListener() {
+                    /**
+                     * handles the event when the button is clicked. Opens a
+                     * file chooser window and adds text of the file into array
+                     * list.
+                     *
+                     * @param e the event the table has been clicked.
+                     */
+                    @Override
+                    public void actionPerformed(ActionEvent e
+                    ) {
+                        JFileChooser chooser = new JFileChooser();
+                        int v = chooser.showOpenDialog(null);
+                        if (v == JFileChooser.APPROVE_OPTION) {
+                            File antBrain = chooser.getSelectedFile();
+                            AntBrainParser ant = new AntBrainParser();
+                            antBrainTeam2 = ant.AntBrainParser(antBrain);
+                        }
+                    }
+                }
+        );
+
+        uploadWorld = new JButton("Upload World");
+
+        uploadWorld.setBorderPainted(
+                false);
+        uploadWorld.setFocusPainted(
+                false);
+        uploadWorld.setContentAreaFilled(
+                false);
+        uploadWorld.setFont(
+                new Font("Times New Roman", Font.PLAIN, 18));
+        /**
+         * creates effect when hovering button
+         */
+        uploadWorld.addMouseListener(
+                new MouseAdapter() {
+                    Font f = uploadWorld.getFont();
+
+                    /**
+                     * makes the text of the button bold when mouse enters the
+                     * area of the button
+                     *
+                     * @param me the event that mouse entered button area
+                     */
+                    @Override
+                    public void mouseEntered(MouseEvent me
+                    ) {
+                        uploadWorld.setFont(new Font("Times New Roman", Font.BOLD, 18));
+                    }
+
+                    /**
+                     * sets the font of the button as it was before entering the
+                     * area button
+                     *
+                     * @param me the event that mouse left button area
+                     */
+                    @Override
+                    public void mouseExited(MouseEvent me
+                    ) {
+                        uploadWorld.setFont(f);
+                    }
+                }
+        );
+        uploadWorld.addActionListener(
+                new ActionListener() {
+                    /**
+                     * handles the event when the button is clicked. Opens a
+                     * file chooser window and adds text of the file into array
+                     * list.
+                     *
+                     * @param e the event the table has been clicked.
+                     */
+                    @Override
+                    public void actionPerformed(ActionEvent e
+                    ) {
+                        JFileChooser chooser = new JFileChooser();
+                        int v = chooser.showOpenDialog(null);
+                        if (v == JFileChooser.APPROVE_OPTION) {
+                            File worldUploaded = chooser.getSelectedFile();
+                            WorldParser wrldParser = new WorldParser();
+                            try {
+                                newWorld = wrldParser.WorldParser(worldUploaded);
+                                worldField.setText(newWorld.testWorld());
+                            } catch (FileNotFoundException ex) {
+                                Logger.getLogger(SingleMatch.class.getName()).log(Level.SEVERE, null, ex);
+                            }
+                        }
+                    }
+                }
+        );
+
+        outerPanel.setLayout(
+                new BorderLayout());
+        userInfo.setLayout(
+                new BoxLayout(userInfo, BoxLayout.PAGE_AXIS));
         team1.setAlignmentX(Component.CENTER_ALIGNMENT);
+
         team2.setAlignmentX(Component.CENTER_ALIGNMENT);
+
         uploadTeam1.setAlignmentX(Component.CENTER_ALIGNMENT);
+
         uploadTeam2.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+        uploadWorld.setAlignmentX(Component.CENTER_ALIGNMENT);
+
         userInfo.add(Box.createRigidArea(new Dimension(0, 20)));
         userInfo.add(team1);
+
         userInfo.add(uploadTeam1);
+
         userInfo.add(Box.createRigidArea(new Dimension(0, 40)));
         userInfo.add(team2);
+
         userInfo.add(uploadTeam2);
 
+        userInfo.add(Box.createRigidArea(new Dimension(0, 40)));
+        userInfo.add(uploadWorld);
+
         outerPanel.add(userInfo, BorderLayout.NORTH);
+
         outerPanel.add(startBtn, BorderLayout.SOUTH);
-        outerPanel.setPreferredSize(new Dimension(250, 0));
+
+        outerPanel.setPreferredSize(
+                new Dimension(250, 0));
 
         return outerPanel;
     }
@@ -273,17 +402,18 @@ public class SingleMatch extends JFrame {
      * @return JPanel including a JTextArea
      */
     public JPanel createWorldField() {
-        JTextArea worldField;
         JPanel outerPanel;
+        JScrollPane scroll;
 
         outerPanel = new JPanel();
         outerPanel.setLayout(new BoxLayout(outerPanel, BoxLayout.LINE_AXIS));
         outerPanel.setBorder(new TitledBorder(new LineBorder(Color.GRAY, 1), "Ant-World"));
         //prints the world into the text area
-        worldField = new JTextArea(newWorld.testWorld());
+        worldField = new JTextArea();
         //set font to fix spacing
         worldField.setFont(new Font(Font.MONOSPACED, Font.PLAIN, 12));
-        outerPanel.add(worldField);
+        scroll = new JScrollPane(worldField);
+        outerPanel.add(scroll);
 
         return outerPanel;
     }
