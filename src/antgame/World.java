@@ -148,7 +148,7 @@ public class World {
     // Try and keep the map bigger than 20x20 ish.
     private void addFood() {
         Random r = new Random();
-        int foodNeeded = 6;
+        int foodNeeded = 11;
         int foodPlaced = 0;
         boolean spaceAvaliable;
         int Low = 0;
@@ -211,7 +211,7 @@ public class World {
                 if (spaceAvaliable) {
                     for (int counterX = 0; counterX <= randomRockX; counterX++) {
                         for (int counterY = 0; counterY <= randomRockY; counterY++) {
-                            if (Math.random() < 0.5) {
+                            if (Math.random() > 0.3) {
                                 world[spaceResultX + counterX][spaceResultY + counterY] = "#";
                             }
                         }

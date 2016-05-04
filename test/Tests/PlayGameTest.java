@@ -43,9 +43,9 @@ public class PlayGameTest {
         List<List<String>> brainList2 = new ArrayList<>();
         
         File f1 = new File("ANTBRAIN");
-        File f2 = new File("ANTBRAIN");
+        File f2 = new File("ANTBRAINTWO");
         
-        World world = new World(50, 50);
+        World world = new World(150, 150);
         AntBrainParser parser = new AntBrainParser();
         
         brainList1 = parser.AntBrainParser(f1);

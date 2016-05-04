@@ -95,7 +95,7 @@ public class PlayGame {
             //if (currentAnt.colour == 0) { // Extract this and set variable brain to the colour of the ant brain. 
             switch (brain.get(currentAnt.state).get(0)) {
                 case "sense":
-                    
+
                     int[] currPos = new int[2];
                     currPos[0] = currentAntX;
                     currPos[1] = currentAntY;
@@ -186,7 +186,45 @@ public class PlayGame {
                         currentAnt.setPosition(newPos[0], newPos[1]);
                         currentAnt.setState(Integer.parseInt(brain.get(currentAnt.state).get(1)));
                         currentAnt.setResting(14);
-                        // *** Check if the ant is surrounded *** ///
+                        int surroundedAntCounter = 0;
+                        int surroundedRockCounter = 0;
+                        // For all the directions around the ant:
+                        for (int i = 0; i < 6; i++) {
+                            // Check if it is rocky.
+                            if (gameWorld.adjacentCell(currentAnt.getAntX(), currentAnt.getAntY(), i).equals("#")) {
+                                surroundedRockCounter++;
+                            } else if (currentAnt.colour == 1) {
+                                Ant antCheck = redAnts.get(0);
+                                Iterator itr = redAnts.iterator();
+                                // If back, check if it is surrounded by red ants.
+                                while (itr.hasNext()) {
+                                    if (antCheck.positionX == gameWorld.adjacentCell(currentAnt.getAntX(), currentAnt.getAntY(), i)[0]
+                                            && antCheck.positionY == gameWorld.adjacentCell(currentAnt.getAntX(), currentAnt.getAntY(), i)[1] 
+                                            && !antCheck.isDead) {
+                                        surroundedAntCounter++;
+                                    }
+                                    antCheck = (Ant) itr.next();
+                                }
+                            } else {
+                                Ant antCheck = blackAnts.get(0);
+                                Iterator itr = blackAnts.iterator();
+                                // if red, check if it is surrounded by black ants. 
+                                while (itr.hasNext()) {
+                                    if (antCheck.positionX == gameWorld.adjacentCell(currentAnt.getAntX(), currentAnt.getAntY(), i)[0]
+                                            && antCheck.positionY == gameWorld.adjacentCell(currentAnt.getAntX(), currentAnt.getAntY(), i)[1]
+                                            && !antCheck.isDead) {
+                                        surroundedAntCounter++;
+                                    }
+                                    antCheck = (Ant) itr.next();
+                                }
+                            }
+                        }
+                        
+                        // Ant is surrounded by ants and walls, kill it! (making sure the ant is at least outnumbered.
+                        if (surroundedAntCounter + surroundedRockCounter > 4 && surroundedAntCounter > 2){
+                            currentAnt.setIsDead(true);
+                        }
+                        
                     }
                     break;
 
@@ -214,17 +252,16 @@ public class PlayGame {
             if (antCheck.positionX == x && antCheck.positionY == y) {
                 return true;
             }
-            antCheck = (Ant)itr.next();
+            antCheck = (Ant) itr.next();
         }
 
-        
         antCheck = blackAnts.get(0);
         Iterator itrB = blackAnts.iterator();
         while (itrB.hasNext()) {
             if (antCheck.positionX == x && antCheck.positionY == y) {
                 return true;
             }
-            antCheck = (Ant)itrB.next();
+            antCheck = (Ant) itrB.next();
         }
         return false;
     }
@@ -237,7 +274,7 @@ public class PlayGame {
             if (antCheck.positionX == x && antCheck.positionY == y) {
                 return antCheck;
             }
-            antCheck = (Ant)itr.next();
+            antCheck = (Ant) itr.next();
         }
 
         antCheck = blackAnts.get(0);
@@ -246,7 +283,7 @@ public class PlayGame {
             if (antCheck.positionX == x && antCheck.positionY == y) {
                 return antCheck;
             }
-            antCheck = (Ant)itr.next();
+            antCheck = (Ant) itr.next();
         }
         throw new Exception("No ant in position given");
     }
@@ -305,7 +342,7 @@ public class PlayGame {
         System.out.println("Length of Black Ant Array: " + blackAnts.size());
 
         // outer loop for rounds.
-        while (roundCounter <= 50) {
+        while (roundCounter <= 5000) {
             int redAntIndexCounter = 0;
             int blackAntIndexCounter = 0;
             for (int i = 0; i < redAnts.size() + blackAnts.size(); i++) {
@@ -345,6 +382,9 @@ public class PlayGame {
             }
             roundCounter++;
         }
+        
+        System.out.println("RedScore: " + redScore);
+        System.out.println("BlackScore: " + blackScore);
 
         //Return the game score  
         if (redScore > blackScore) {
