@@ -16,9 +16,12 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
@@ -70,13 +73,13 @@ public class Tournament extends JFrame {
 
     private JPanel createUsersInfoAndStart() {
         JPanel outerPanel, userInfo;
-        JLabel team1;
-        JButton uploadBtn, startBtn;
+        JLabel lbl;
+        JButton uploadBtn, startBtn, uploadWorld;
 
         userInfo = new JPanel();
         outerPanel = new JPanel();
-        team1 = new JLabel("Upload the ant-brains");
-        team1.setFont(new Font("Times New Roman", Font.PLAIN, 18));
+        lbl = new JLabel("Upload the ant-brains");
+        lbl.setFont(new Font("Times New Roman", Font.PLAIN, 18));
 
         startBtn = new JButton("Start Game");
         startBtn.setBorderPainted(false);
@@ -144,13 +147,13 @@ public class Tournament extends JFrame {
         uploadBtn.setBorderPainted(false);
         uploadBtn.setFocusPainted(false);
         uploadBtn.setContentAreaFilled(false);
-        uploadBtn.setFont(new Font("Times New Roman", Font.PLAIN, 16));
+        uploadBtn.setFont(new Font("Times New Roman", Font.PLAIN, 18));
         uploadBtn.addMouseListener(new MouseAdapter() {
             Font f = uploadBtn.getFont();
 
             @Override
             public void mouseEntered(MouseEvent me) {
-                uploadBtn.setFont(new Font("Times New Roman", Font.BOLD, 16));
+                uploadBtn.setFont(new Font("Times New Roman", Font.BOLD, 18));
             }
 
             @Override
@@ -191,16 +194,82 @@ public class Tournament extends JFrame {
                 }
             }
         });
+        
+        uploadWorld = new JButton("Upload World");
+        uploadWorld.setBorderPainted(false);
+        uploadWorld.setFocusPainted(false);
+        uploadWorld.setContentAreaFilled( false);
+        uploadWorld.setFont(new Font("Times New Roman", Font.PLAIN, 18));
+        /**
+         * creates effect when hovering button
+         */
+        uploadWorld.addMouseListener(
+                new MouseAdapter() {
+                    Font f = uploadWorld.getFont();
+
+                    /**
+                     * makes the text of the button bold when mouse enters the
+                     * area of the button
+                     *
+                     * @param me the event that mouse entered button area
+                     */
+                    @Override
+                    public void mouseEntered(MouseEvent me
+                    ) {
+                        uploadWorld.setFont(new Font("Times New Roman", Font.BOLD, 18));
+                    }
+
+                    /**
+                     * sets the font of the button as it was before entering the
+                     * area button
+                     *
+                     * @param me the event that mouse left button area
+                     */
+                    @Override
+                    public void mouseExited(MouseEvent me
+                    ) {
+                        uploadWorld.setFont(f);
+                    }
+                }
+        );
+        uploadWorld.addActionListener(
+                new ActionListener() {
+                    /**
+                     * handles the event when the button is clicked. Opens a
+                     * file chooser window and adds text of the file into array
+                     * list.
+                     *
+                     * @param e the event the table has been clicked.
+                     */
+                    @Override
+                    public void actionPerformed(ActionEvent e
+                    ) {
+                        JFileChooser chooser = new JFileChooser();
+                        int v = chooser.showOpenDialog(null);
+                        if (v == JFileChooser.APPROVE_OPTION) {
+                            File worldUploaded = chooser.getSelectedFile();
+                            WorldParser wrldParser = new WorldParser();
+                            try {
+                                newWorld = wrldParser.WorldParser(worldUploaded);
+                                worldField.setText(newWorld.testWorld());
+                            } catch (FileNotFoundException ex) {
+                                Logger.getLogger(SingleMatch.class.getName()).log(Level.SEVERE, null, ex);
+                            }
+                        }
+                    }
+                }
+        );
 
         outerPanel.setLayout(new BorderLayout());
         userInfo.setLayout(new BoxLayout(userInfo, BoxLayout.PAGE_AXIS));
-        team1.setAlignmentX(Component.CENTER_ALIGNMENT);
+        lbl.setAlignmentX(Component.CENTER_ALIGNMENT);
         uploadBtn.setAlignmentX(Component.CENTER_ALIGNMENT);
+        uploadWorld.setAlignmentX(Component.CENTER_ALIGNMENT);
         userInfo.add(Box.createRigidArea(new Dimension(0, 20)));
-        userInfo.add(team1);
+        userInfo.add(lbl);
         userInfo.add(uploadBtn);
-        userInfo.add(Box.createRigidArea(new Dimension(0, 40)));
-
+        userInfo.add(Box.createRigidArea(new Dimension(0, 80)));
+        userInfo.add(uploadWorld);
         outerPanel.add(userInfo, BorderLayout.NORTH);
         outerPanel.add(startBtn, BorderLayout.SOUTH);
         outerPanel.setPreferredSize(new Dimension(200, 0));

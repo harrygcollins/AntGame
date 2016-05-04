@@ -290,15 +290,10 @@ public class SingleMatch extends JFrame {
         );
 
         uploadWorld = new JButton("Upload World");
-
-        uploadWorld.setBorderPainted(
-                false);
-        uploadWorld.setFocusPainted(
-                false);
-        uploadWorld.setContentAreaFilled(
-                false);
-        uploadWorld.setFont(
-                new Font("Times New Roman", Font.PLAIN, 18));
+        uploadWorld.setBorderPainted(false);
+        uploadWorld.setFocusPainted(false);
+        uploadWorld.setContentAreaFilled( false);
+        uploadWorld.setFont(new Font("Times New Roman", Font.PLAIN, 18));
         /**
          * creates effect when hovering button
          */
