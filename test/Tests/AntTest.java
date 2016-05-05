@@ -18,7 +18,7 @@ public class AntTest {
     }
     
     @Test
-    public void getterAntTests() {
+    public void positionTests() {
         
         int[] pos = ant1.getPos();
         

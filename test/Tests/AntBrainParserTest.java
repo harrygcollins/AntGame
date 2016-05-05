@@ -42,7 +42,7 @@ public class AntBrainParserTest {
     
     
     @Test
-    public void firsTest() {
+    public void firstTest() {
         // Create the class
         AntBrainParser parser = new AntBrainParser();
         
@@ -53,6 +53,7 @@ public class AntBrainParserTest {
         // Add two strings to (0, 0) and (0,1) coordinates. 
         tempList.add("drop");
         tempList.add("5");
+        tempList.add("; Notes which shouldn't parse");
         
         // Add the inner array list into the outer one.
         testBrain.add(tempList);
