@@ -5,6 +5,9 @@
         <group name="Labs">
             <file>file:/Users/Harry/Documents/AntGame/test/Tests/RandomNumberTest.java</file>
         </group>
-        <group/>
+        <group>
+            <file>file:/C:/Users/ADigenis/Documents/GitHub/AntGame/src/antgame/Ant.java</file>
+            <file>file:/C:/Users/ADigenis/Documents/GitHub/AntGame/src/antgame/Tournament.java</file>
+        </group>
     </open-files>
 </project-private>

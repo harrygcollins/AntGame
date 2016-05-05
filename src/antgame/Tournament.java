@@ -46,11 +46,17 @@ public class Tournament extends JFrame {
     JTextArea scoreField;
     JTextArea worldField;
 
+    /**
+     * Constructor of the tournament class. Builds the UI for tournament game
+     */
     public Tournament() {
         super("Tournament");
         buildUI();
     }
 
+    /**
+     * Uses the methods to add components to the container
+     */
     private void buildUI() {
         Container c;
         c = getContentPane();
@@ -66,6 +72,12 @@ public class Tournament extends JFrame {
         setVisible(true);
     }
 
+    /**
+     * Creates the panel for the users which includes buttons to upload
+     * ant-brains and world if users want to and a button to start the game and returns it.
+     *
+     * @return JPanel including label with upload button, start button and upload world button
+     */
     private JPanel createUsersInfoAndStart() {
         JPanel outerPanel, userInfo;
         JLabel lbl;
@@ -104,12 +116,17 @@ public class Tournament extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 int prevScore;
                 String winnerTeam;
+                //checks whether have been uploaded more than 1 ant-brains
                 if (antBrains.size() > 1) {
+                    //checks if world has been uploaded if not
+                    // load a random one
                     if (newWorld == null) {
                         newWorld = new World(50, 50);
                         worldField.setText(newWorld.testWorld());
                         JOptionPane.showMessageDialog(rootPane, "A random world will be used");
                     }
+                    //for loops that make every team play each other 2 times
+                    //and update scores
                     for (int i = 0; i < antBrains.size(); i++) {
                         for (int j = 0; j < antBrains.size(); j++) {
                             if (i != j) {
@@ -173,11 +190,16 @@ public class Tournament extends JFrame {
                     AntBrainParser ant = new AntBrainParser();
                     teamName = chooser.getSelectedFile().getName();
                     boolean exists = false;
+                    //checks whether the name of the new ant-brain inserted
+                    //already exists
                     for (int i = 0; i < teamNames.size(); i++) {
                         if (teamNames.get(i).equals(teamName)) {
                             exists = true;
                         }
                     }
+                    //if there is not ant-brain file with same name
+                    // add it to the list. Also the name of the file is added to a list
+                    // and score too
                     if (!exists) {
                         antBrains.add(ant.AntBrainParser(antBrain));
                         teamNames.add(teamName);
@@ -245,7 +267,11 @@ public class Tournament extends JFrame {
                             File worldUploaded = chooser.getSelectedFile();
                             WorldParser wrldParser = new WorldParser();
                             try {
+                                //pass the world uploaded to the parser
+                                //and if it's valid it is return to the newWorld variable
                                 newWorld = wrldParser.WorldParser(worldUploaded);
+                                //set the world to the textarea so it can be seen
+                                //by the users
                                 worldField.setText(newWorld.testWorld());
                             } catch (FileNotFoundException ex) {
                                 Logger.getLogger(SingleMatch.class.getName()).log(Level.SEVERE, null, ex);
@@ -301,6 +327,9 @@ public class Tournament extends JFrame {
         return outerPanel;
     }
 
+    /**
+     * Updates text of the score field based on the new scores.
+     */
     private void scoreFieldUpdate() {
         scoreField.setText(null);
         for (int i = 0; i < scores.size(); i++) {
@@ -308,9 +337,11 @@ public class Tournament extends JFrame {
         }
     }
 
+    /**
+     * updates the score of a selected team which is the winner of a game
+     * @param i index of the team in the score list
+     */
     private void teamScoreUpdate(int i) {
-//        int newScore;
-//        newScore = scores.get(i).getScore() + 1;
         scores.get(i).setScore(scores.get(i).getScore() + 1);
     }
 }

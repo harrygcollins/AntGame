@@ -51,7 +51,7 @@ public class SingleMatch extends JFrame {
     }
 
     /**
-     * Adds users buttons and the world field the container
+     * Uses the methods to add components to the container
      */
     private void buildUI() {
         Container c;
@@ -70,9 +70,9 @@ public class SingleMatch extends JFrame {
 
     /**
      * Creates the panel for the users which includes buttons to upload
-     * ant-brains and a button to start the game and returns it.
+     * ant-brains and world if users want to and a button to start the game and returns it.
      *
-     * @return JPanel including users button and start game button
+     * @return JPanel including user buttons and start game button
      */
     private JPanel createUsersInfoAndStart() {
         JPanel outerPanel, userInfo;
