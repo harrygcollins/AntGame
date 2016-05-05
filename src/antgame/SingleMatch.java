@@ -129,7 +129,7 @@ public class SingleMatch extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 if (antBrainTeam1 != null && antBrainTeam2 != null) {
                     if (newWorld == null) {
-                        newWorld = new World(50, 50);
+                        newWorld = new World(150, 150);
                         worldField.setText(newWorld.testWorld());
                         JOptionPane.showMessageDialog(rootPane, "A random world will be used");
                     }
@@ -137,7 +137,7 @@ public class SingleMatch extends JFrame {
                     winner = newGame.runGame();
                     if (winner == 0) {
                         JOptionPane.showMessageDialog(rootPane, "Red team wins!");
-                    } else if (winner == 1) {
+                    } else if (winner == 2) {
                         JOptionPane.showMessageDialog(rootPane, "Black team wins!");
                     } else {
                         JOptionPane.showMessageDialog(rootPane, "Draw!");
@@ -213,7 +213,7 @@ public class SingleMatch extends JFrame {
                         if (v == JFileChooser.APPROVE_OPTION) {
                             File antBrain = chooser.getSelectedFile();
                             AntBrainParser ant = new AntBrainParser();
-                            antBrainTeam1 = ant.AntBrainParser(antBrain);
+                            antBrainTeam1 = ant.AntBrainParser(antBrain);                                                       
                         }
                     }
                 }
@@ -391,7 +391,7 @@ public class SingleMatch extends JFrame {
      *
      * @return JPanel including a JTextArea
      */
-    public JPanel createWorldField() {
+    private JPanel createWorldField() {
         JPanel outerPanel;
         JScrollPane scroll;
 

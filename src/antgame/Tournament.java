@@ -63,8 +63,8 @@ public class Tournament extends JFrame {
         c.setLayout(new BorderLayout());
 
         c.add(createUsersInfoAndStart(), BorderLayout.WEST);
-
         c.add(createWorldField(), BorderLayout.CENTER);
+        c.add(createScoreField(), BorderLayout.EAST);
         c.setPreferredSize(new Dimension(1200, 900));
 
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -121,7 +121,7 @@ public class Tournament extends JFrame {
                     //checks if world has been uploaded if not
                     // load a random one
                     if (newWorld == null) {
-                        newWorld = new World(50, 50);
+                        newWorld = new World(150, 150);
                         worldField.setText(newWorld.testWorld());
                         JOptionPane.showMessageDialog(rootPane, "A random world will be used");
                     }
@@ -136,7 +136,7 @@ public class Tournament extends JFrame {
                                 if (winner == 0) {
                                     teamScoreUpdate(i);
                                     JOptionPane.showMessageDialog(rootPane, teamNames.get(i) + "Red team wins!");
-                                } else if (winner == 1) {
+                                } else if (winner == 2) {
                                     teamScoreUpdate(j);
                                     JOptionPane.showMessageDialog(rootPane, teamNames.get(j) + " wins!");
                                 } else {
@@ -155,7 +155,7 @@ public class Tournament extends JFrame {
         }
         );
 
-        uploadBtn = new JButton("Upload ant-brains");
+        uploadBtn = new JButton("Upload ant-brain");
         uploadBtn.setBorderPainted(false);
         uploadBtn.setFocusPainted(false);
         uploadBtn.setContentAreaFilled(false);
@@ -298,35 +298,38 @@ public class Tournament extends JFrame {
         return outerPanel;
     }
 
-    public JPanel createWorldField() {
+    /**
+     * Creates the world text area and puts it into a scroll pane
+     * @return JScrollPane including the world text area
+     */
+    private JScrollPane createWorldField() {
         JPanel outerPanel;
-        JPanel innerPanel;
         JScrollPane scroll;
 
-        innerPanel = new JPanel();
         outerPanel = new JPanel();
-        scoreField = new JTextArea();
         worldField = new JTextArea();
 
         outerPanel.setLayout(new BoxLayout(outerPanel, BoxLayout.LINE_AXIS));
-        innerPanel.setLayout(new BoxLayout(innerPanel, BoxLayout.LINE_AXIS));
-        innerPanel.add(worldField);
-        //set font to fix spacing
         worldField.setFont(new Font(Font.MONOSPACED, Font.PLAIN, 12));
         scroll = new JScrollPane(worldField);
-        scroll.setPreferredSize(new Dimension(700, 0));
+        scroll.setPreferredSize(new Dimension(800, 0));
         scroll.setBorder(new TitledBorder(new LineBorder(Color.GRAY, 1), "Ant-World"));
-        outerPanel.add(scroll);
+        scroll.setPreferredSize(new Dimension(700, 0));
 
-        innerPanel = new JPanel();
-        innerPanel.setLayout(new BoxLayout(innerPanel, BoxLayout.LINE_AXIS));
-        innerPanel.setBorder(new TitledBorder(new LineBorder(Color.GRAY, 1), "Score"));
-        innerPanel.add(scoreField);
-        outerPanel.add(innerPanel);
-
-        return outerPanel;
+        return scroll;
     }
 
+    /**
+     * Creates the text area for scores and returns it
+     * @return JTextArea for scores
+     */
+    private JTextArea createScoreField(){        
+        scoreField = new JTextArea();
+        scoreField.setBorder(new TitledBorder(new LineBorder(Color.GRAY, 1), "Score"));
+        scoreField.setPreferredSize(new Dimension(200, 0));
+        
+        return scoreField;
+    }
     /**
      * Updates text of the score field based on the new scores.
      */
