@@ -1,13 +1,12 @@
 package antgame;
 
-import java.util.Arrays;
 import java.util.Random;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
+ * This class represents the map or the world which a game is played on.
+ * It keeps track of what the map looks like and creates and tests new ones.
  *
- * @author Harry
+ * @author Team 13
  */
 public class World {
 
@@ -16,7 +15,11 @@ public class World {
     private int mapHeight;
     private String[][] world;
 
-    // Constructor for the World.
+    /**
+    * Constructor for the World.
+    * @param MapWidth an integer representing the width of the map
+    * @param MapHeight an integer representing the height of the map
+    */
     public World(int MapWidth, int MapHeight) {
         this.mapWidth = MapWidth;
         this.mapHeight = MapHeight;
@@ -32,28 +35,45 @@ public class World {
     }
 
     // If you want to use the world, use the getInstance() method.
-    // *** Needs to be finished to work ***
     public static World getInstance() {
         return instance;
     }
 
-    // Returns The Height of the Map.
+    /**
+     * @return an integer representing the map height
+    */
     public int getMapHeight() {
         return mapHeight;
     }
 
-    // Returns the width of the map.
+    /**
+     * @return an integer representing the map width
+    */
     public int getMapWidth() {
         return mapWidth;
     }
 
+    /**
+     * @param x an integer representing the x coordinate of the position
+     * @param y an integer representing the y coordinate of the position
+     * @return a string representing the cell at the given position in the map
+    */
     public String getCellData(int x, int y) {
         return world[x][y];
     }
 
+    /**
+     * @param w a list of list of strings representing a world
+    */
     public void setWorld(String w[][]){
         world = w;
     }
+    
+    /**
+     * @param x an integer representing the x coordinate of the position
+     * @param y an integer representing the y coordinate of the position
+     * @return an integer representing the amount of food at the given position
+    */
     public int getFoodAt(int x, int y) {
         if (isInteger(world[x][y])) {
             return Integer.parseInt(world[x][y]);
@@ -62,6 +82,11 @@ public class World {
         }
     }
 
+    /**
+     * @param x an integer representing the x coordinate of the position
+     * @param y an integer representing the y coordinate of the position
+     * @param amount an integer value representing the amount of food to be set
+    */
     public void setFoodAt(int x, int y, int amount) {
         if (isInteger(world[x][y])) {
             world[x][y] = Integer.toString(Integer.parseInt(world[x][y]) + amount);
@@ -70,19 +95,23 @@ public class World {
         }
     }
 
+    /**
+     * @param s a string
+     * @return a boolean true if string is an integer
+    */
     public static boolean isInteger(String s) {
         try {
             Integer.parseInt(s);
-        } catch (NumberFormatException e) {
-            return false;
-        } catch (NullPointerException e) {
+        } catch (NumberFormatException | NullPointerException e) {
             return false;
         }
         // only got here if we didn't return false
         return true;
     }
 
+    /**
     // Adds a border to the world and fills the inside with .'s.
+    */
     private void addBorder() {
         for (int i = 0; i < mapHeight; i++) {
 
@@ -97,7 +126,9 @@ public class World {
         }
     }
 
-    // Adds two randomly placed ant hills into the world. 
+    /**
+    * Adds two randomly placed ant hills into the world.
+    */
     private void addAntHill() {
         int antHillX = 7;
         int antHillY = 7;
@@ -140,10 +171,12 @@ public class World {
         }
 
     }
-
-    // Adds *FOOD NEEDED* randomly placed blobs of food into the world.
-    // If the map is very small, occasionally it wont be able to place all the food.... So will not terminate. 
-    // Try and keep the map bigger than 20x20 ish.
+    
+    /**
+    * Adds *FOOD NEEDED* randomly placed blobs of food into the world.
+    * If the map is very small, occasionally it wont be able to place all the food.... So will not terminate. 
+    * Try and keep the map bigger than 20x20.
+    */
     private void addFood() {
         Random r = new Random();
         int foodNeeded = 11;
@@ -179,6 +212,9 @@ public class World {
         }
     }
 
+    /**
+     * Add random rocks to the map.
+    */
     private void addRocks() {
         Random r = new Random();
 
@@ -219,10 +255,13 @@ public class World {
             }
         }
     }
-
-    //returns an int array of the two values x and y respectivly of the cell adjacent to the ant
-    //takes a direction as a parameter to show which adjacent cell it needs to return as well as
-    //the position of the ant itself
+    
+    /**
+     * @param inx the x coordinate of the position
+     * @param iny the y coordinate of the position
+     * @param d the direction the ant is facing
+     * @return an integer array of the two values x and y respectively of the cell adjacent to the ant
+    */
     public int[] adjacentCell(int inx, int iny, int d) {
         int x = inx;
         int y = iny;
@@ -257,9 +296,11 @@ public class World {
         }
     }
 
-    //Currently, and even number means left and odd means right
-    //Note this doesnt change the ants direction, just returns the direction it would be facing
-    //if it was to turn that way.
+    /**
+     * @param leftOrRight an integer representing the choice to turn either direction
+     * @param d the current direction of the ant
+     * @return the new direction the ant would face
+     */
     public int turn(int leftOrRight, int d) {
         if (leftOrRight % 2 == 0) { //if left
             return (d + 5) % 6;
@@ -268,7 +309,13 @@ public class World {
         }
     }
 
-    //Currently returns the co-ordianates of the sensed cell entered as a direction in the parameter
+    /**
+     * @param pos the current position of the ant
+     * @param dir the direction the ant is facing
+     * @param sense the direction the ant wishes to sense
+     * @return the position of the cell the ant wants to sense
+     * @throws Exception 
+     */
     public int[] sensedCell(int[] pos, int dir, senseDir sense) throws Exception {
         int[] result;
         switch (sense) {
@@ -290,26 +337,27 @@ public class World {
         }
     }
 
+    /**
+     * @param pos the coordinates of a position on the board
+     * @return true if the cell is rocky, false otherwise
+     */
     public boolean rocky(int[] pos) {
         return world[pos[0]][pos[1]].equals("#");
     }
 
-    public int foodAt(int[] pos) {
-        if (world[pos[0]][pos[1]].startsWith("1") || world[pos[0]][pos[1]].startsWith("2") || world[pos[0]][pos[1]].startsWith("3") || world[pos[0]][pos[1]].startsWith("4")
-                || world[pos[0]][pos[1]].startsWith("5") || world[pos[0]][pos[1]].startsWith("6") || world[pos[0]][pos[1]].startsWith("7") || world[pos[0]][pos[1]].startsWith("8")
-                || world[pos[0]][pos[1]].startsWith("9")) {
-            return Integer.parseInt(world[pos[0]][pos[1]]);
-        } else {
-            return -1;
-
-        }
-
-    }
-
+    /**
+     * @param pos position on board to be changed
+     * @param f the integer to change it to
+     */
     public void setFoodAt(int[] pos, int f) {
         world[pos[0]][pos[1]] = Integer.toString(f);
     }
 
+    /**
+     * @param pos position on the board
+     * @param colour the team colour the anthill should belong to
+     * @return true if that teams anthill is at that position
+     */
     public boolean anthillAt(int[] pos, int colour) {
         if (colour == 0) {
             return (world[pos[0]][pos[1]].equals("+"));
@@ -318,6 +366,12 @@ public class World {
         }
     }
 
+    /**
+     * @param s the marker choice
+     * @param a the ant choosing the marker
+     * @return the string used to store the marker on the world
+     * @throws Exception 
+     */
     public String chooseMarker(int s, Ant a) throws Exception {
 
         switch (s) {
@@ -369,6 +423,10 @@ public class World {
         }
     }
 
+    /**
+     * Clears the marker at the ants position.
+     * @param a the ant at the position of the marker
+     */
     public void clearMarker(Ant a) {
         int x = a.getAntX();
         int y = a.getAntY();
@@ -382,6 +440,12 @@ public class World {
         }
     }
 
+    /**
+     * Places the marker at the ants position
+     * @param a the ant placing the marker
+     * @param i the marker choice to be placed
+     * @throws Exception 
+     */
     public void placeMarker(Ant a, int i) throws Exception {
         int x, y;
         Ant thisAnt = a;

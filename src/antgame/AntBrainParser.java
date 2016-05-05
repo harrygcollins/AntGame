@@ -10,8 +10,9 @@ import java.util.logging.Logger;
 import jdk.nashorn.internal.runtime.regexp.joni.exception.SyntaxException;
 
 /**
- *
- * @author Harry
+ * This class allows the ant brain(s) submitted at run time to be parsed and checked
+ * that they are syntactically correct
+ * @author Team 13
  */
 public class AntBrainParser {
 

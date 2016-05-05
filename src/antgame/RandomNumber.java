@@ -2,7 +2,8 @@ package antgame;
 import java.math.BigInteger;
 
 /*
- *
+ * This class is created to return a random number using the given method in the
+ * specification
  * @author Team13
  */
 public class RandomNumber {
@@ -15,7 +16,9 @@ public class RandomNumber {
         noOfCalls = 0;
     }
     
-    //Method to be called to get the next random int in the sequence
+    /*
+    * Method to be called to get the next random int in the sequence.
+    */
     public int randomInt(int n) {
         BigInteger num = new BigInteger("" + getS(noOfCalls + 4) + ""); //make a call to a seperate method due to repetition
         BigInteger x = num.divide(new BigInteger("65536")); //(si+4 div 65536)

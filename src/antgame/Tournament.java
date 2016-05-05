@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package antgame;
 
 import java.awt.BorderLayout;
@@ -32,13 +27,13 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
-import javax.swing.JTextField;
 import javax.swing.border.LineBorder;
 import javax.swing.border.TitledBorder;
 
 /**
- *
- * @author ADigenis
+ * A class representing the tournament ability of the AntGame
+ * 
+ * @author Team 13
  */
 public class Tournament extends JFrame {
 

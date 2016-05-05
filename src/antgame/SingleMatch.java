@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package antgame;
 
 import java.awt.BorderLayout;
@@ -36,7 +31,7 @@ import javax.swing.border.TitledBorder;
 /**
  * Constructs the UI for a single match game
  *
- * @author ADigenis
+ * @author Team 13
  */
 public class SingleMatch extends JFrame {
 
@@ -392,7 +387,7 @@ public class SingleMatch extends JFrame {
     }
 
     /**
-     * Creates a panel with a jtextarea with world printed
+     * Creates a panel with a JTextArea with world printed
      *
      * @return JPanel including a JTextArea
      */

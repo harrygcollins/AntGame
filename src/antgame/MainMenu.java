@@ -14,10 +14,10 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 
 /**
- * Constructs the UI for main menu of the game
- * to choose between tournament and single match
+ * Constructs the UI for the main menu of the game to choose between tournament and
+ * single match
  * 
- * @author ADigenis
+ * @author Team 13
  */
 public class MainMenu extends JFrame {
 

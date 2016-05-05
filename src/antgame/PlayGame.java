@@ -1,35 +1,41 @@
 package antgame;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
- *
- * @author Harry
+ * This class contains the main running of the game containing the world and the
+ * ants, controlling the effects of a round and finding a winner
+ * 
+ * @author Team 13
  */
 public class PlayGame {
 
-    // Two arrays to store the black and red ants.
+    //two arrays to store the black and red ants.
     private ArrayList<Ant> redAnts = new ArrayList<>();
     private ArrayList<Ant> blackAnts = new ArrayList<>();
+    
+    //the map/world the game will play on
     private World gameWorld;
+    
+    //each teams antbrains stored in a List of Lists
     public List<List<String>> redAntBrain = new ArrayList<>();
     public List<List<String>> blackAntBrain = new ArrayList<>();
-
+    
+    //score variables and round counter
     private int redScore;
     private int blackScore;
-
     private int roundCounter = 0;
 
-//<<<<<<< HEAD
-//    public PlayGame(File redFile, File blackFile, World map) {
-//=======
+    
+    /**
+     * Constructor to set-up the new game inputting the map and both teams brains.
+     * @param antBrain1 the red teams antBrain
+     * @param antBrain2 the black teams antBrain
+     * @param map the world object to be played on
+    */
     public PlayGame(List<List<String>> antBrain1, List<List<String>> antBrain2, World map) {
-//>>>>>>> origin/master
 
         // Assign all the arugments to local variables.
         AntBrainParser parser = new AntBrainParser();
@@ -73,6 +79,10 @@ public class PlayGame {
         }
     }
 
+    /**
+     * @param inputAnt the ant object whose turn it is in the game
+     * @throws Exception
+    */
     private void step(Ant inputAnt) throws Exception {
         Ant currentAnt = inputAnt;
         int currentAntX = currentAnt.getAntX();
@@ -239,7 +249,11 @@ public class PlayGame {
         }
     }
 
-    //returns true if ant at position given, false otherwise
+    /**
+     * @param x an integer representing the x coordinate of a board position
+     * @param y an integer representing the y coordinate of a board position
+     * @return a boolean true if ant at position given, false otherwise
+    */
     private boolean isAntAt(int x, int y) {
         Ant antCheck = redAnts.get(0);
         Iterator itr = redAnts.iterator();
@@ -261,7 +275,12 @@ public class PlayGame {
         return false;
     }
 
-    //returns the ant at the position given
+    /**
+     * @param x an integer representing the x coordinate of a board position
+     * @param y an integer representing the y coordinate of a board position
+     * @return the ant object at the position given
+     * @throws Exception if no ant is at the position
+    */
     private Ant antAt(int x, int y) throws Exception {
         Ant antCheck = redAnts.get(0);
         Iterator itr = redAnts.iterator();
@@ -283,12 +302,20 @@ public class PlayGame {
         throw new Exception("No ant in position given");
     }
 
-    //sets the ant at position given
+    /**
+     * Sets the ant at a given position
+     * @param pos an integer array representing x and y coordinates
+     * @param a the ant whose position is to be changed
+    */
     private void setAntAt(int[] pos, Ant a) {
         a.setPosition(pos[0], pos[1]);
     }
 
     //returns int value of the other colour
+    /**
+     * @param colour an integer representing a colour
+     * @return an integer representing the colour opposite to the parameter given
+    */
     public int otherColour(int colour) {
         return Math.abs(colour - 1);
     }
@@ -298,6 +325,13 @@ public class PlayGame {
         FRIEND, FOE, FRIENDWITHFOOD, FOEWITHFOOD, FOOD, ROCK, MARKER, FOEMARKER, HOME, FOEHOME
     }
 
+    /**
+     * @param p an array containing the coordinates of a cell in the world
+     * @param cond a enum representing a certain condition
+     * @param colour and integer representing a team colour
+     * @return a boolean true if condition is true in given cell, false otherwise
+     * @throws Exception
+    */
     public boolean cellMatches(int[] p, condition cond, int colour) throws Exception {
         switch (cond) {
             case FRIEND:
@@ -309,13 +343,9 @@ public class PlayGame {
             case FOEWITHFOOD:
                 return (isAntAt(p[0], p[1]) && antAt(p[0], p[1]).getColour() != colour && antAt(p[0], p[1]).getHasFood());
             case FOOD:
-                return (gameWorld.foodAt(p) > 0);
+                return (gameWorld.getFoodAt(p[0],p[1]) > 0);
             case ROCK:
                 return (gameWorld.rocky(p));
-            //case MARKER(i):
-            //check_marker_at(p,c,i)
-            //case FOEMARKER:
-            //check_any_marker_at(p, other_colour(c))
             case HOME:
                 return gameWorld.anthillAt(p, colour);
             case FOEHOME:
@@ -324,6 +354,10 @@ public class PlayGame {
         return false;
     }
 
+    /**
+     * Runs the main frame of the game iterating through the rounds
+     * @return an integer value used to determine the winner of the game
+    */
     public int runGame() {
 
         // int to keep track of whos turn it is.

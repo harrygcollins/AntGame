@@ -3,13 +3,10 @@ package antgame;
 import java.io.Serializable;
 
 /**
- * The score class.
- * This creates a high score object that can be put into an array list and saved.
+ * The score class creates a high score object that can be put into an array 
+ * list and saved.
  * Extends Comparable to sort the scores.
- */
-/**
- *
- * @author Harry
+ * @author Team 13
  */
 public class Score implements Comparable<Score>{
     private String teamName;
@@ -42,6 +39,9 @@ public class Score implements Comparable<Score>{
         return teamName;
     }
     
+     /**
+     * @param s an integer to set the score of the objects team
+     */
     public void setScore(int s){
         score = s;
     }
