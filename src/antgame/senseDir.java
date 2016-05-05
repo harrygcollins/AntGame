@@ -1,8 +1,8 @@
 package antgame;
 
 /**
- *
- * @author Harry
+ * The enumerators representing the sense directions
+ * @author Team 13
  */
 public enum senseDir {
 

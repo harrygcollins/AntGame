@@ -1,8 +1,8 @@
 package antgame;
 
 /**
- *
- * @author Harry
+ * The enumerators representing the marker types
+ * @author Team 13
  */
 public enum markerType {
 
