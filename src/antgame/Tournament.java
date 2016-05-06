@@ -32,7 +32,7 @@ import javax.swing.border.TitledBorder;
 
 /**
  * A class representing the tournament ability of the AntGame
- * 
+ *
  * @author Team 13
  */
 public class Tournament extends JFrame {
@@ -65,8 +65,8 @@ public class Tournament extends JFrame {
         c.add(createUsersInfoAndStart(), BorderLayout.WEST);
         c.add(createWorldField(), BorderLayout.CENTER);
         c.add(createScoreField(), BorderLayout.EAST);
-        c.setPreferredSize(new Dimension(1200, 900));
 
+        setExtendedState(JFrame.MAXIMIZED_BOTH);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         pack();
         setVisible(true);
@@ -74,9 +74,11 @@ public class Tournament extends JFrame {
 
     /**
      * Creates the panel for the users which includes buttons to upload
-     * ant-brains and world if users want to and a button to start the game and returns it.
+     * ant-brains and world if users want to and a button to start the game and
+     * returns it.
      *
-     * @return JPanel including label with upload button, start button and upload world button
+     * @return JPanel including label with upload button, start button and
+     * upload world button
      */
     private JPanel createUsersInfoAndStart() {
         JPanel outerPanel, userInfo;
@@ -134,10 +136,10 @@ public class Tournament extends JFrame {
                                 newGame = new PlayGame(antBrains.get(i), antBrains.get(j), newWorld);
                                 winner = newGame.runGame();
                                 if (winner == 0) {
-                                    teamScoreUpdate(i);
-                                    JOptionPane.showMessageDialog(rootPane, teamNames.get(i) + "Red team wins!");
+                                    teamScoreUpdate(teamNames.get(i));
+                                    JOptionPane.showMessageDialog(rootPane, teamNames.get(i) + " wins!");
                                 } else if (winner == 2) {
-                                    teamScoreUpdate(j);
+                                    teamScoreUpdate(teamNames.get(j));
                                     JOptionPane.showMessageDialog(rootPane, teamNames.get(j) + " wins!");
                                 } else {
                                     JOptionPane.showMessageDialog(rootPane, "Draw!");
@@ -184,14 +186,16 @@ public class Tournament extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 JFileChooser chooser = new JFileChooser();
                 String teamName;
+                List<List<String>> tempBrain;
                 int v = chooser.showOpenDialog(null);
                 if (v == JFileChooser.APPROVE_OPTION) {
                     File antBrain = chooser.getSelectedFile();
-                    AntBrainParser ant = new AntBrainParser();
+                    AntBrainParser parser = new AntBrainParser();
                     teamName = chooser.getSelectedFile().getName();
                     boolean exists = false;
-                    //checks whether the name of the new ant-brain inserted
+                    //checks whether the name of the new ant-brain uploaded
                     //already exists
+                    tempBrain = parser.AntBrainParser(antBrain);
                     for (int i = 0; i < teamNames.size(); i++) {
                         if (teamNames.get(i).equals(teamName)) {
                             exists = true;
@@ -200,22 +204,25 @@ public class Tournament extends JFrame {
                     //if there is not ant-brain file with same name
                     // add it to the list. Also the name of the file is added to a list
                     // and score too
-                    if (!exists) {
-                        antBrains.add(ant.AntBrainParser(antBrain));
+                    if (!exists && parser.IsValidBrain(tempBrain)) {
+                        antBrains.add(parser.AntBrainParser(antBrain));
                         teamNames.add(teamName);
                         scores.add(new Score(teamName, 0));
                         scoreFieldUpdate();
-                    } else {
+                        JOptionPane.showMessageDialog(rootPane, "Ant-Brain uploaded successfully!");
+                    } else if (exists) {
                         JOptionPane.showMessageDialog(rootPane, "The name of your ant-brain already exists.\nPlease rename the file of your ant-brain!(" + teamName + ")");
+                    } else {
+                        JOptionPane.showMessageDialog(rootPane, "Couldn't upload the Ant-Brain!");
                     }
                 }
             }
         });
-        
+
         uploadWorld = new JButton("Upload World");
         uploadWorld.setBorderPainted(false);
         uploadWorld.setFocusPainted(false);
-        uploadWorld.setContentAreaFilled( false);
+        uploadWorld.setContentAreaFilled(false);
         uploadWorld.setFont(new Font("Times New Roman", Font.PLAIN, 18));
         /**
          * creates effect when hovering button
@@ -300,6 +307,7 @@ public class Tournament extends JFrame {
 
     /**
      * Creates the world text area and puts it into a scroll pane
+     *
      * @return JScrollPane including the world text area
      */
     private JScrollPane createWorldField() {
@@ -321,15 +329,17 @@ public class Tournament extends JFrame {
 
     /**
      * Creates the text area for scores and returns it
+     *
      * @return JTextArea for scores
      */
-    private JTextArea createScoreField(){        
+    private JTextArea createScoreField() {
         scoreField = new JTextArea();
         scoreField.setBorder(new TitledBorder(new LineBorder(Color.GRAY, 1), "Score"));
         scoreField.setPreferredSize(new Dimension(200, 0));
-        
+
         return scoreField;
     }
+
     /**
      * Updates text of the score field based on the new scores.
      */
@@ -342,9 +352,14 @@ public class Tournament extends JFrame {
 
     /**
      * updates the score of a selected team which is the winner of a game
-     * @param i index of the team in the score list
+     *
+     * @param n name of the team
      */
-    private void teamScoreUpdate(int i) {
-        scores.get(i).setScore(scores.get(i).getScore() + 1);
+    private void teamScoreUpdate(String n) {
+        for (int i = 0; i < scores.size(); i++) {
+            if (n.equals(scores.get(i).getTeamName())) {
+                scores.get(i).setScore(scores.get(i).getScore() + 1);
+            }
+        }
     }
 }

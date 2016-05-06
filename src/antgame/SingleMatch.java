@@ -61,8 +61,8 @@ public class SingleMatch extends JFrame {
         c.add(createUsersInfoAndStart(), BorderLayout.WEST);
 
         c.add(createWorldField(), BorderLayout.CENTER);
-        c.setPreferredSize(new Dimension(1200, 900));
 
+        setExtendedState(JFrame.MAXIMIZED_BOTH);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         pack();
         setVisible(true);
@@ -70,7 +70,8 @@ public class SingleMatch extends JFrame {
 
     /**
      * Creates the panel for the users which includes buttons to upload
-     * ant-brains and world if users want to and a button to start the game and returns it.
+     * ant-brains and world if users want to and a button to start the game and
+     * returns it.
      *
      * @return JPanel including user buttons and start game button
      */
@@ -210,10 +211,17 @@ public class SingleMatch extends JFrame {
                     ) {
                         JFileChooser chooser = new JFileChooser();
                         int v = chooser.showOpenDialog(null);
+                        List<List<String>> tempBrain;
                         if (v == JFileChooser.APPROVE_OPTION) {
                             File antBrain = chooser.getSelectedFile();
-                            AntBrainParser ant = new AntBrainParser();
-                            antBrainTeam1 = ant.AntBrainParser(antBrain);                                                       
+                            AntBrainParser parser = new AntBrainParser();
+                            tempBrain = parser.AntBrainParser(antBrain);
+                            if (parser.IsValidBrain(tempBrain)) {
+                                antBrainTeam1 = parser.AntBrainParser(antBrain);
+                                JOptionPane.showMessageDialog(rootPane, "Ant-Brain uploaded successfully!");
+                            } else {
+                                JOptionPane.showMessageDialog(rootPane, "Couldn't upload the Ant-Brain!");
+                            }
                         }
                     }
                 }
@@ -273,22 +281,36 @@ public class SingleMatch extends JFrame {
                     @Override
                     public void actionPerformed(ActionEvent e
                     ) {
+
                         JFileChooser chooser = new JFileChooser();
                         int v = chooser.showOpenDialog(null);
+                        List<List<String>> tempBrain;
                         if (v == JFileChooser.APPROVE_OPTION) {
                             File antBrain = chooser.getSelectedFile();
-                            AntBrainParser ant = new AntBrainParser();
-                            antBrainTeam2 = ant.AntBrainParser(antBrain);
+                            AntBrainParser parser = new AntBrainParser();
+                            tempBrain = parser.AntBrainParser(antBrain);
+                            if (parser.IsValidBrain(tempBrain)) {
+                                antBrainTeam2 = parser.AntBrainParser(antBrain);
+                                JOptionPane.showMessageDialog(rootPane, "Ant-Brain uploaded successfully!");
+                            } else {
+                                JOptionPane.showMessageDialog(rootPane, "Couldn't upload the Ant-Brain!");
+                            }
                         }
                     }
+
                 }
         );
 
         uploadWorld = new JButton("Upload World");
-        uploadWorld.setBorderPainted(false);
-        uploadWorld.setFocusPainted(false);
-        uploadWorld.setContentAreaFilled( false);
-        uploadWorld.setFont(new Font("Times New Roman", Font.PLAIN, 18));
+
+        uploadWorld.setBorderPainted(
+                false);
+        uploadWorld.setFocusPainted(
+                false);
+        uploadWorld.setContentAreaFilled(
+                false);
+        uploadWorld.setFont(
+                new Font("Times New Roman", Font.PLAIN, 18));
         /**
          * creates effect when hovering button
          */

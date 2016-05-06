@@ -159,6 +159,7 @@ public class MainMenu extends JFrame {
             }
         });
 
+        setExtendedState(JFrame.MAXIMIZED_BOTH);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         pack();
         setVisible(true);

@@ -6,7 +6,12 @@
             <file>file:/Users/Harry/Documents/AntGame/test/Tests/RandomNumberTest.java</file>
         </group>
         <group>
-            <file>file:/C:/Users/ADigenis/Documents/GitHub/AntGame/src/antgame/Ant.java</file>
+            <file>file:/C:/Users/ADigenis/Documents/GitHub/AntGame/src/antgame/SingleMatch.java</file>
+            <file>file:/C:/Users/ADigenis/Documents/GitHub/AntGame/src/antgame/AntBrainParser.java</file>
+            <file>file:/C:/Users/ADigenis/Documents/GitHub/AntGame/src/antgame/PlayGame.java</file>
+            <file>file:/C:/Users/ADigenis/Documents/GitHub/AntGame/src/antgame/WorldParser.java</file>
+            <file>file:/C:/Users/ADigenis/Documents/GitHub/AntGame/test/Tests/PlayGameTest.java</file>
+            <file>file:/C:/Users/ADigenis/Documents/GitHub/AntGame/src/antgame/MainMenu.java</file>
             <file>file:/C:/Users/ADigenis/Documents/GitHub/AntGame/src/antgame/Tournament.java</file>
         </group>
     </open-files>
