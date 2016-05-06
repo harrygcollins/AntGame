@@ -44,7 +44,7 @@ public class Score implements Comparable<Score> {
 
     /**
      * Returns the score of the team
-     * 
+     *
      * @param s an integer to set the score of the objects team
      */
     public void setScore(int s) {
@@ -52,19 +52,23 @@ public class Score implements Comparable<Score> {
     }
 
     /**
-     * Sorting method. This compares the scores of the current score with another saved score.
-     * The integer returned dictates if the score is higher or lower.
-     * This is used to be able to sort the array list.
-     * @param score1 the second score, obtained from the array list of saved scores.
-     * @return int value dictating if the current score is higher or lower/equal to the inputted score.
+     * Sorting method. This compares the scores of the current score with
+     * another saved score. The integer returned dictates if the score is higher
+     * or lower. This is used to be able to sort the array list.
+     *
+     * @param score1 the second score, obtained from the array list of saved
+     * scores.
+     * @return int value dictating if the current score is higher or lower/equal
+     * to the inputted score.
      */
     /**
-     * Sorting method. This compares the scores of the current score with another saved score.
-     * The integer returned dictates if the score is higher or lower.
-     * This is used to be able to sort the array list.
-     * 
+     * Sorting method. This compares the scores of the current score with
+     * another saved score. The integer returned dictates if the score is higher
+     * or lower. This is used to be able to sort the array list.
+     *
      * @param o the second score, obtained from the array list of saved scores.
-     * @return int which shows whether the current score is higher or lower/equal to the inputted score.
+     * @return int which shows whether the current score is higher or
+     * lower/equal to the inputted score.
      */
     @Override
     public int compareTo(Score o) {

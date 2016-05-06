@@ -14,53 +14,40 @@ import java.util.logging.Logger;
  * @author Team 13
  */
 public class WorldParser {
+
     int x;
     int y;
     public String[][] world;
     World newWorld;
-    
-    public World WorldParser(File f) throws FileNotFoundException{
-        try {
-            
-            // Import a file to be parsed.
 
+    public World WorldParser(File f) throws FileNotFoundException {
+        try {
+
+            // Import a file to be parsed.
             Scanner input = new Scanner(new FileReader(f));
             x = Integer.parseInt(input.nextLine());
-            System.out.println("X = " + x);
             y = Integer.parseInt(input.nextLine());
-            System.out.println("Y = " + y);
-            
-            
+
             world = new String[x][y];
-            
-            //String line = input.nextLine();
             int rowCounter = 0;
-            while(input.hasNextLine()){
+            while (input.hasNextLine()) {
                 int charCounter = 0;
                 Scanner rowScanner = new Scanner(input.nextLine());
-                while(rowScanner.hasNext()){
+                while (rowScanner.hasNext()) {
                     world[rowCounter][charCounter] = rowScanner.next();
-                    charCounter ++;
+                    charCounter++;
                 }
-                rowCounter ++;
+                rowCounter++;
             }
-            
-            for(int i = 0; i < x; i ++){
-                for(int j = 0; j < y; j ++){
-                    System.out.print(world[i][j]);
-                }
-                System.out.println(" ");
-            }
-            
-            
+
         } catch (IOException ex) {
             Logger.getLogger(WorldParser.class.getName()).log(Level.SEVERE, null, ex);
         }
-     
+
         newWorld = new World(x, y);
         newWorld.setWorld(world);
         return newWorld;
-        
+
     }
-        
+
 }

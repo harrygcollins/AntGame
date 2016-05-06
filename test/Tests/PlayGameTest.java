@@ -21,14 +21,14 @@ import static org.junit.Assert.*;
  * @author Harry
  */
 public class PlayGameTest {
-    
+
     public PlayGameTest() {
     }
-    
+
     @BeforeClass
     public static void setUpClass() {
     }
-    
+
     @AfterClass
     public static void tearDownClass() {
     }
@@ -38,23 +38,23 @@ public class PlayGameTest {
     //
     @Test
     public void wholeTest() {
-        
+
         List<List<String>> brainList1 = new ArrayList<>();
         List<List<String>> brainList2 = new ArrayList<>();
-        
+
         File f1 = new File("ANTBRAIN");
         File f2 = new File("ANTBRAINTWO");
-        
+
         World world = new World(150, 150);
         AntBrainParser parser = new AntBrainParser();
-        
+
         brainList1 = parser.AntBrainParser(f1);
         brainList2 = parser.AntBrainParser(f2);
-        
+
         PlayGame game = new PlayGame(brainList1, brainList2, world);
         int winner = game.runGame();
-        
-        if(winner == 0 ){
+
+        if (winner == 0) {
             System.out.println(" RED WINS ");
         } else if (winner == 1) {
             System.out.println(" DRAW ");
@@ -63,6 +63,6 @@ public class PlayGameTest {
         } else {
             System.out.println(" Something's gone horribly wrong... ");
         }
-    
+
     }
 }

@@ -21,28 +21,27 @@ import static org.junit.Assert.*;
  * @author Harry
  */
 public class WorldParserTest {
-    
+
     public WorldParserTest() {
     }
-    
+
     @BeforeClass
     public static void setUpClass() {
     }
-    
+
     @AfterClass
     public static void tearDownClass() {
     }
 
-    
     @Test
     public void worldParseTest() {
-    
+
         WorldParser wParser = new WorldParser();
         try {
             World world = wParser.WorldParser(new File("WorldParseTest"));
         } catch (FileNotFoundException ex) {
             Logger.getLogger(WorldParserTest.class.getName()).log(Level.SEVERE, null, ex);
         }
-    
+
     }
 }

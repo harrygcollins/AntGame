@@ -150,7 +150,6 @@ public class Tournament extends JFrame {
                         Collections.sort(scores);
                     }
                 } else {
-                    System.out.println();
                     JOptionPane.showMessageDialog(rootPane, "More than 1 ant-brains should be uploaded!");
                 }
             }

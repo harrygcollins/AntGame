@@ -6,13 +6,17 @@
             <file>file:/Users/Harry/Documents/AntGame/test/Tests/RandomNumberTest.java</file>
         </group>
         <group>
-            <file>file:/C:/Users/ADigenis/Documents/GitHub/AntGame/src/antgame/SingleMatch.java</file>
-            <file>file:/C:/Users/ADigenis/Documents/GitHub/AntGame/src/antgame/AntBrainParser.java</file>
-            <file>file:/C:/Users/ADigenis/Documents/GitHub/AntGame/src/antgame/PlayGame.java</file>
-            <file>file:/C:/Users/ADigenis/Documents/GitHub/AntGame/src/antgame/WorldParser.java</file>
+            <file>file:/C:/Users/ADigenis/Documents/GitHub/AntGame/test/Tests/WorldParserTest.java</file>
+            <file>file:/C:/Users/ADigenis/Documents/GitHub/AntGame/test/Tests/RandomNumberTest.java</file>
+            <file>file:/C:/Users/ADigenis/Documents/GitHub/AntGame/test/Tests/AntBrainParserTest.java</file>
             <file>file:/C:/Users/ADigenis/Documents/GitHub/AntGame/test/Tests/PlayGameTest.java</file>
-            <file>file:/C:/Users/ADigenis/Documents/GitHub/AntGame/src/antgame/MainMenu.java</file>
-            <file>file:/C:/Users/ADigenis/Documents/GitHub/AntGame/src/antgame/Tournament.java</file>
+            <file>file:/C:/Users/ADigenis/Documents/GitHub/AntGame/test/Tests/WorldTest.java</file>
+            <file>file:/C:/Users/ADigenis/Documents/GitHub/AntGame/src/antgame/RandomNumber.java</file>
+            <file>file:/C:/Users/ADigenis/Documents/GitHub/AntGame/src/antgame/senseDir.java</file>
+            <file>file:/C:/Users/ADigenis/Documents/GitHub/AntGame/test/Tests/AntTest.java</file>
+            <file>file:/C:/Users/ADigenis/Documents/GitHub/AntGame/src/antgame/markerType.java</file>
+            <file>file:/C:/Users/ADigenis/Documents/GitHub/AntGame/test/Tests/ScoreTest.java</file>
+            <file>file:/C:/Users/ADigenis/Documents/GitHub/AntGame/src/antgame/Score.java</file>
         </group>
     </open-files>
 </project-private>

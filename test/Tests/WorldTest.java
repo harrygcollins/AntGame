@@ -16,14 +16,14 @@ import static org.junit.Assert.*;
  * @author Harry
  */
 public class WorldTest {
-    
+
     public WorldTest() {
     }
-    
+
     @BeforeClass
     public static void setUpClass() {
     }
-    
+
     @AfterClass
     public static void tearDownClass() {
     }
@@ -37,15 +37,15 @@ public class WorldTest {
         assertEquals(numbers.getMapHeight(), 100);
         assertEquals(numbers.getMapWidth(), 100);
     }
-    
+
     @Test
-    public void testRocksOnOutside(){
-        World testWorld = new World (100, 100);
+    public void testRocksOnOutside() {
+        World testWorld = new World(100, 100);
         boolean isCorrect = true;
-        
-        for(int i = 0; i < testWorld.getMapWidth(); i++){
-            for(int j = 0; j < testWorld.getMapHeight(); j++){
-                if(i == 0 || j == 0 || i == testWorld.getMapWidth() - 1 || j == testWorld.getMapHeight() - 1){
+
+        for (int i = 0; i < testWorld.getMapWidth(); i++) {
+            for (int j = 0; j < testWorld.getMapHeight(); j++) {
+                if (i == 0 || j == 0 || i == testWorld.getMapWidth() - 1 || j == testWorld.getMapHeight() - 1) {
                     isCorrect = ("#".equals(testWorld.getCellData(i, j)));
                 }
             }

@@ -18,22 +18,22 @@ import static org.junit.Assert.*;
  * @author ADigenis
  */
 public class ScoreTest {
-    
+
     public ScoreTest() {
     }
-    
+
     @BeforeClass
     public static void setUpClass() {
     }
-    
+
     @AfterClass
     public static void tearDownClass() {
     }
-    
+
     @Before
     public void setUp() {
     }
-    
+
     @After
     public void tearDown() {
     }
@@ -74,5 +74,5 @@ public class ScoreTest {
         int result = s2.compareTo(s1);
         assertEquals(expResult, result);
     }
-    
+
 }

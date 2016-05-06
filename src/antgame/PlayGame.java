@@ -40,14 +40,9 @@ public class PlayGame {
         // Assign all the arugments to local variables.
         AntBrainParser parser = new AntBrainParser();
 
-        System.out.println("Making red ant brain");
-        //redAntBrain = parser.AntBrainParser(redFile);
         redAntBrain = antBrain1;
-        System.out.println("Red ant brain size: " + redAntBrain.size());
 
-        //blackAntBrain = parser.AntBrainParser(blackFile);
         blackAntBrain = antBrain2;
-        System.out.println("Black ant brain size: " + blackAntBrain.size());
         gameWorld = map;
 
         //Initialise the scores
@@ -65,12 +60,10 @@ public class PlayGame {
                     switch (gameWorld.getCellData(i, j)) {
                         case "+":
                             redAnts.add(new Ant(0, j, i, redIdCounter));
-                            System.out.println("Red ant " + redIdCounter + " added!");
                             redIdCounter++;
                             break;
                         case "-":
                             blackAnts.add(new Ant(1, j, i, blackIdCounter));
-                            System.out.println("Black ant " + blackIdCounter + "  added!");
                             blackIdCounter++;
                             break;
                     }
@@ -382,9 +375,6 @@ public class PlayGame {
             roundCounter++;
         }
         
-        System.out.println("RedScore: " + redScore);
-        System.out.println("BlackScore: " + blackScore);
-
         //Return the game score  
         if (redScore > blackScore) {
             // Red team won.

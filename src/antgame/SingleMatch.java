@@ -148,7 +148,6 @@ public class SingleMatch extends JFrame {
                     newWorld = null;
                     worldField.setText(null);
                 } else {
-                    System.out.println();
                     JOptionPane.showMessageDialog(rootPane, "Ant-Brains were not uploaded!");
                 }
             }
